@@ -34,7 +34,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .db.on{background:var(--blue);color:#fff;box-shadow:0 0 14px rgba(26,79,255,.5)}
 
 /* SCREENS */
-.scr{display:none;min-height:100vh;padding-top:42px}
+.scr{display:none;min-height:100vh;padding-top:42px;overflow-x:hidden}
 .scr.on{display:block}
 
 /* BUTTONS */
@@ -584,67 +584,111 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 
 
 @media(max-width:768px){
-  /* Landing */
-  .hero{grid-template-columns:1fr;padding:36px 22px}
-  .hero-right{display:none}
-  .lnav{padding:0 22px}
-  .lnav-links{display:none}
-  .feat-grid{grid-template-columns:1fr}
-  .fc.big{grid-column:span 1}
-  .cmp-sec{padding:40px 22px}
-  .how-sec{padding:40px 22px;padding-left:16px;padding-right:16px}
-  .steps{grid-template-columns:repeat(2,1fr)}
-  .feat-sec{padding:40px 22px}
-  .cmptbl{grid-template-columns:1fr 1fr 1fr;font-size:11px}
-  .ccell{padding:10px 8px;font-size:11px}
-  .chdr{padding:12px 8px;font-size:12px}
-  .ctaband{padding:48px 22px}
-  .footer{padding:28px 22px;flex-direction:column;gap:14px}
-  .spstrip{padding:14px 22px;gap:16px}
+  /* ── GLOBAL ── */
+  body{overflow-x:hidden}
 
-  /* App nav */
-  .appnav{padding:0 16px}
+  /* ── DEMO NAV ── */
+  .dnav{padding:6px 10px;gap:3px}
+  .db{font-size:10px;padding:4px 9px}
+  .dnlbl{display:none}
 
-  /* Dashboard */
-  .dash{padding:20px 16px}
-  .dash-hdr{flex-direction:column;gap:12px;align-items:flex-start}
-  .ex-grid{grid-template-columns:repeat(2,1fr);gap:10px}
-  .new-excrd{min-height:180px}
-  .gami{padding:14px 16px}
-  .badges-row{gap:7px}
-  .gbadge{padding:7px 10px}
+  /* ── LANDING ── */
+  .land-nav{padding:0 16px;height:54px}
+  .land-nav-logo{font-size:17px}
+  .btn-ghost-w{display:none}
+  .hero-stage{padding:40px 20px 30px;min-height:auto}
+  .hero-h1{font-size:clamp(52px,14vw,80px);letter-spacing:-.04em}
+  .hero-center{max-width:100%}
+  .hero-eyebrow{font-size:11px;padding:5px 12px}
+  .hero-btns{flex-direction:column;align-items:stretch}
+  .hero-btns .btn{width:100%;justify-content:center}
+  .ui-cards{gap:8px;padding:20px 16px;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .ui-cards::-webkit-scrollbar{display:none}
+  .ui-join-card,.ui-event-card,.ui-wl-card,.ui-msg-card,.ui-reveal-card{flex-shrink:0}
+  .land-footer{padding:20px 16px;flex-direction:column;align-items:flex-start;gap:12px}
+  .lf-links{gap:14px;flex-wrap:wrap}
 
-  /* Exchange detail */
-  .statsrow{grid-template-columns:repeat(2,1fr)}
-  .parti-grid{grid-template-columns:repeat(4,1fr)}
-  .detbody{padding:16px}
-  .actrow{gap:6px}
-  .actrow .btn{font-size:12px;padding:8px 12px}
-  .dc-name{font-size:22px}
-  .detail-cover{height:220px}
+  /* ── APP NAV ── */
+  .appnav{padding:0 16px;height:52px}
 
-  /* Wishlist */
-  .wl-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  /* ── DASHBOARD ── */
+  .dash{padding:16px}
+  .dash-hdr{flex-direction:column;gap:10px;align-items:flex-start;margin-bottom:20px}
+  .dash-greet{font-size:22px}
+  .dash-hdr > .btn{width:100%;justify-content:center}
+  .ex-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .excrd-cover{height:150px}
+  .excrd-emoji{font-size:44px}
+  .excrd-name{font-size:13px}
+  .new-excrd{min-height:150px;padding:20px}
+  .gami{padding:14px}
+  .badges-row{gap:7px;overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}
+  .gbadge{flex-shrink:0;padding:7px 10px}
+  .wl-suggest-row{gap:8px}
+  .wl-sug{min-width:120px}
+  .wl-add-bar{padding:10px 12px}
+
+  /* ── EXCHANGE DETAIL ── */
+  .detail-cover{height:200px}
+  .dc-name{font-size:20px}
+  .dc-meta{font-size:12px;gap:8px;flex-wrap:wrap}
+  .detbody{padding:14px}
+  .statsrow{grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
+  .statcrd{padding:12px 8px}
+  .stat-val{font-size:18px}
+  .org-bar{padding:12px 14px}
+  .org-bar > div:last-child{width:100%;overflow-x:auto;padding-bottom:2px}
+  .actrow{gap:6px;overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}
+  .actrow .btn{font-size:12px;padding:8px 12px;flex-shrink:0}
+  .tabs{overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{white-space:nowrap;padding:10px 14px;font-size:12px}
+  .parti-grid{grid-template-columns:repeat(4,1fr);gap:6px}
+  .parti-av{width:40px;height:40px;font-size:13px}
+  .parti-name{font-size:11px}
+  .parti-st{font-size:10px}
+  .msg-wrap{height:380px}
+  .statsrow .stat-val[style*="font-size:13px"]{font-size:13px}
+
+  /* ── WISHLIST ── */
   .wl-hdr{padding:14px 16px}
-  .wl-body{padding:16px}
   .wl-usr-name{font-size:16px}
+  .wl-body{padding:14px}
+  .wl-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .wli-img{height:140px;font-size:42px}
+  .wli-name{font-size:12px}
+  .wli-price{font-size:13px}
+  .add-area{padding:10px 12px}
 
-  /* Create */
-  .pcreate-layout{grid-template-columns:1fr}
+  /* ── CREATE ── */
+  .pcreate-layout{grid-template-columns:1fr;min-height:auto}
   .pcreate-right{display:none}
-  .pcreate-form{padding:24px 20px 80px}
+  .pcreate-form{padding:20px 16px 80px}
+  .pcreate-title{font-size:18px}
+  .pcreate-style-row{gap:5px}
+  .pcreate-addon-row{gap:5px}
 
-  /* Reveal */
-  .rev-crd{padding:32px 24px}
-  .rev-name{font-size:26px}
+  /* ── REVEAL ── */
+  #s-reveal.on{align-items:center;padding:20px}
+  .rev-crd{padding:28px 20px;width:95%}
+  .rev-name{font-size:24px}
+  .rev-env{font-size:56px}
+  .rev-acts{flex-direction:column;gap:8px}
+  .rev-acts .btn{width:100%;justify-content:center}
 
-  /* Modals */
-  #draw-rules-modal > div,
-  #wl-tracker-modal > div,
-  #nudge-modal > div{border-radius:20px 20px 0 0;position:fixed;bottom:0;left:0;right:0;max-width:100%}
+  /* ── MODALS → bottom sheets ── */
   #draw-rules-modal,
   #wl-tracker-modal,
-  #nudge-modal{align-items:flex-end}
+  #nudge-modal{align-items:flex-end;padding:0}
+  #draw-rules-modal > div,
+  #wl-tracker-modal > div,
+  #nudge-modal > div{
+    border-radius:24px 24px 0 0;
+    max-width:100%;
+    width:100%;
+    max-height:90vh;
+    overflow-y:auto;
+  }
 }
 </style>
 </head>
