@@ -177,15 +177,39 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:cen
 .join-detail .lbl{font-size:11px;color:var(--text3);margin-top:2px}
 
 /* Create */
-.create-page{max-width:500px;margin:0 auto;padding:28px 44px}
+.create-page{max-width:820px;margin:0 auto;padding:28px 44px}
 .create-page h2{font-family:var(--serif);font-size:28px;margin-bottom:4px}
 .create-sub{font-size:14px;color:var(--text2);margin-bottom:24px}
+.create-layout{display:grid;grid-template-columns:280px 1fr;gap:28px;align-items:start}
+.cover-picker{position:relative;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:4/5;background:rgba(255,255,255,.5);border:1px solid rgba(29,30,24,.08);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text3);font-size:13px;transition:all .28s var(--ease)}
+.cover-picker:hover{border-color:var(--lime);color:var(--lime)}
+.cover-picker img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cover-picker .cover-overlay{position:absolute;inset:0;background:rgba(29,30,24,.3);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;color:#fff;font-size:13px;font-weight:600}
+.cover-picker:hover .cover-overlay{opacity:1}
+.cover-search{position:absolute;inset:0;z-index:5;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:var(--r-lg);padding:12px;display:flex;flex-direction:column}
+.cover-search input{margin-bottom:8px}
+.cover-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;overflow-y:auto;flex:1;border-radius:8px}
+.cover-grid img{width:100%;height:80px;object-fit:cover;border-radius:6px;cursor:pointer;transition:transform .15s;border:2px solid transparent}
+.cover-grid img:hover{transform:scale(1.03);border-color:var(--lime)}
+.theme-row{display:flex;gap:10px;align-items:center;margin-top:10px}
+.theme-label{font-size:11px;color:var(--text3);font-weight:500}
+.color-opts{display:flex;gap:6px;flex-wrap:wrap}
+.color-opt{width:28px;height:28px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .2s}
+.color-opt:hover{transform:scale(1.15)}
+.color-opt.active{border-color:var(--dark);box-shadow:0 0 0 2px rgba(255,255,255,.8),0 0 0 4px var(--dark)}
 .emoji-picker{display:flex;gap:8px;flex-wrap:wrap}
 .emoji-opt{width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,.5);border:2px solid transparent;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;transition:all .2s}
 .emoji-opt:hover{background:rgba(255,255,255,.8)}
 .emoji-opt.active{border-color:var(--lime);background:rgba(238,146,194,.12)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .form-actions{display:flex;gap:10px;margin-top:8px}
+
+/* Wishlist link preview */
+.wish-preview{display:flex;gap:10px;align-items:center;padding:10px;background:rgba(255,255,255,.5);border:1px solid rgba(29,30,24,.06);border-radius:10px;margin-top:6px}
+.wish-preview img{width:48px;height:48px;border-radius:8px;object-fit:cover;flex-shrink:0}
+.wish-preview-info{flex:1;min-width:0}
+.wish-preview-info .title{font-size:12px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wish-preview-info .domain{font-size:10px;color:var(--text3)}
 
 /* Wishlist */
 .wish-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(255,255,255,.6);border:1px solid rgba(29,30,24,.06);border-radius:var(--r);margin-bottom:8px}
@@ -227,6 +251,8 @@ nav{padding:14px 16px;height:60px}.nav-logo{font-size:22px}.nav-link{display:non
 .invite-box{flex-direction:column;align-items:stretch}
 .form-row{grid-template-columns:1fr}
 .form-actions{flex-direction:column}
+.create-layout{grid-template-columns:1fr}
+.cover-picker{aspect-ratio:16/9;max-height:200px}
 .toast{left:16px;right:16px;transform:none;text-align:center}
 }
 </style>
@@ -365,33 +391,87 @@ e("div",{className:"ex-card-title"},ex.name),
 e("div",{className:"ex-card-meta"},e("span",null,"📅 "+fmtDate(ex.exchange_date)),e("span",null,dt))))}),
 e("div",{className:"create-card",onClick:function(){p.nav("create")}},e("div",{style:{fontSize:24,marginBottom:4}},"+"),"New exchange")))}
 
+// Unsplash search (free API — no key needed for small volume via source.unsplash.com)
+var UNSPLASH_TOPICS=["christmas gifts","holiday celebration","winter presents","cozy festive","gift wrapping","snow winter","party celebration","autumn harvest","valentines day","birthday party"];
+function unsplashSearch(query,cb){
+var url="https://api.unsplash.com/search/photos?query="+encodeURIComponent(query)+"&per_page=8&client_id=demo";
+// Use source.unsplash.com direct URLs as fallback (no API key needed)
+var imgs=[];var terms=(query||"christmas gifts").split(" ");
+for(var i=0;i<8;i++){imgs.push("https://source.unsplash.com/400x500/?"+encodeURIComponent(query)+","+i)}
+cb(imgs);
+}
+// Preset cover images from Unsplash
+var COVER_PRESETS=[
+"https://images.unsplash.com/photo-1512909006721-3d6018887383?w=400&h=500&fit=crop",
+"https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=400&h=500&fit=crop",
+"https://images.unsplash.com/photo-1543934638-bd2e138430c4?w=400&h=500&fit=crop",
+"https://images.unsplash.com/photo-1482517967863-00e15c9b44be?w=400&h=500&fit=crop",
+"https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&h=500&fit=crop",
+"https://images.unsplash.com/photo-1545622783-b3e021430fee?w=400&h=500&fit=crop",
+"https://images.unsplash.com/photo-1576919228236-a097c32a5cd4?w=400&h=500&fit=crop",
+"https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=400&h=500&fit=crop"
+];
+var THEME_COLORS=["#FFFCF9","#FFF0F5","#F0F4FF","#F5FFF0","#FFF8E7","#F5F0FF","#FFEEE8","#E8F5F0","#1D1E18","#2D1B2E"];
+
+// Link preview fetcher using jsonlink.io (free, no key)
+function fetchLinkPreview(url,cb){
+if(!url||url.length<8)return;
+try{
+fetch("https://jsonlink.io/api/extract?url="+encodeURIComponent(url)).then(function(r){return r.json()}).then(function(d){
+cb({title:d.title||"",image:d.images&&d.images[0]||"",price:null,domain:d.domain||""})
+}).catch(function(){cb(null)})
+}catch(e){cb(null)}
+}
+
 // Create
 function CreateScreen(p){var a=useAuth();
 var EMOJIS=["🎄","🎁","🎉","🎃","💝","🕎","🌸","🎂","🧧","❄️"];
 var _n=us(""),nm=_n[0],sn=_n[1],_em=us("🎁"),emo=_em[0],semo=_em[1],_d=us(""),dt=_d[0],sd=_d[1],_b=us(""),bud=_b[0],sb2=_b[1],_ds=us(""),desc=_ds[0],sds=_ds[1],_l=us(false),ld=_l[0],sl=_l[1],_er=us(null),err=_er[0],ser=_er[1];
-function go(){if(!nm.trim()){ser("Give your exchange a name");return}ser(null);sl(true);var ic=Math.random().toString(36).substring(2,8).toUpperCase();sb.q("exchanges",{method:"POST",body:{name:nm.trim(),emoji:emo,exchange_date:dt||null,budget:bud?parseFloat(bud):null,description:desc.trim()||null,organizer_id:a.user.id,invite_code:ic,draw_done:false},single:true}).then(function(r){if(r.error){ser(r.error.message||"Failed");sl(false);return}sb.q("participants",{method:"POST",body:{exchange_id:r.data.id,user_id:a.user.id,role:"organizer"}}).then(function(){sl(false);p.nav("detail",{id:r.data.id})})})}
+var _cv=us(""),cover=_cv[0],setCover=_cv[1],_cs=us(false),coverSearch=_cs[0],setCS=_cs[1],_cq=us(""),coverQ=_cq[0],setCQ=_cq[1],_ci=us(COVER_PRESETS),coverImgs=_ci[0],setCI=_ci[1];
+var _tc=us("#FFFCF9"),themeCol=_tc[0],setTC=_tc[1];
+function searchCovers(){if(!coverQ.trim())return;unsplashSearch(coverQ,function(imgs){setCI(imgs)})}
+function go(){if(!nm.trim()){ser("Give your exchange a name");return}if(!bud||parseFloat(bud)<=0){ser("Budget is required");return}ser(null);sl(true);var ic=Math.random().toString(36).substring(2,8).toUpperCase();sb.q("exchanges",{method:"POST",body:{name:nm.trim(),emoji:emo,exchange_date:dt||null,budget:parseFloat(bud),description:desc.trim()||null,organizer_id:a.user.id,invite_code:ic,draw_done:false,cover_image:cover||null,theme_color:themeCol},single:true}).then(function(r){if(r.error){ser(r.error.message||"Failed");sl(false);return}sb.q("participants",{method:"POST",body:{exchange_id:r.data.id,user_id:a.user.id,role:"organizer"}}).then(function(){sl(false);p.nav("detail",{id:r.data.id})})})}
 return e("div",{className:"create-page"},
 e("div",{className:"detail-back",onClick:function(){p.nav("dashboard")}},"← Back"),
 e("h2",null,"Create an exchange"),e("p",{className:"create-sub"},"Set up the basics. You can edit later."),
 err?e("div",{className:"auth-error"},err):null,
+e("div",{className:"create-layout"},
+// Left column — cover image picker
+e("div",null,
+e("div",{className:"cover-picker",onClick:function(){if(!coverSearch)setCS(true)},style:cover?{}:{background:"linear-gradient(135deg,rgba(238,146,194,.15),rgba(49,133,252,.1))"}},
+cover?[e("img",{key:"img",src:cover,alt:"Cover"}),e("div",{key:"ov",className:"cover-overlay",onClick:function(ev){ev.stopPropagation();setCS(true)}},"Change cover")]:
+[e("div",{key:"ic",style:{fontSize:32,marginBottom:6}},"📷"),e("div",{key:"tx"},"Add cover image")],
+coverSearch?e("div",{className:"cover-search",onClick:function(ev){ev.stopPropagation()}},
+e("input",{className:"input",placeholder:"Search photos...",value:coverQ,onChange:function(ev){setCQ(ev.target.value)},onKeyDown:function(ev){if(ev.key==="Enter")searchCovers()},autoFocus:true}),
+e("div",{className:"cover-grid"},coverImgs.map(function(img,i){return e("img",{key:i,src:img,onClick:function(){setCover(img);setCS(false)},loading:"lazy"})})),
+e("button",{className:"btn btn-glass btn-sm",style:{marginTop:6},onClick:function(){setCS(false)}},"Cancel")
+):null),
+// Theme color row
+e("div",{className:"theme-row"},
+e("span",{className:"theme-label"},"Theme"),
+e("div",{className:"color-opts"},THEME_COLORS.map(function(c){return e("div",{key:c,className:"color-opt"+(themeCol===c?" active":""),style:{background:c,border:c==="#FFFCF9"?"2px solid rgba(29,30,24,.15)":undefined},onClick:function(){setTC(c)}})}))
+)),
+// Right column — form fields
 e("div",{style:{display:"flex",flexDirection:"column",gap:14}},
 e("div",null,e("label",{className:"input-label"},"Exchange name"),e("input",{className:"input",placeholder:"e.g. Family Christmas",value:nm,onChange:function(ev){sn(ev.target.value)}})),
 e("div",null,e("label",{className:"input-label"},"Pick an emoji"),e("div",{className:"emoji-picker"},EMOJIS.map(function(em){return e("div",{key:em,className:"emoji-opt"+(emo===em?" active":""),onClick:function(){semo(em)}},em)}))),
 e("div",{className:"form-row"},
 e("div",null,e("label",{className:"input-label"},"Date"),e("input",{className:"input",type:"date",value:dt,onChange:function(ev){sd(ev.target.value)}})),
-e("div",null,e("label",{className:"input-label"},"Budget ($)"),e("input",{className:"input",type:"number",placeholder:"50",value:bud,onChange:function(ev){sb2(ev.target.value)}}))),
+e("div",null,e("label",{className:"input-label"},"Budget ($) *"),e("input",{className:"input",type:"number",placeholder:"50",value:bud,onChange:function(ev){sb2(ev.target.value)},style:!bud?{borderColor:"rgba(128,78,73,.3)"}:{}}))),
 e("div",null,e("label",{className:"input-label"},"Description"),e("textarea",{className:"input",placeholder:"Notes for participants...",value:desc,onChange:function(ev){sds(ev.target.value)}})),
 e("div",{className:"form-actions"},
 e("button",{className:"btn btn-lime",style:{flex:1},onClick:go,disabled:ld},ld?"Creating…":"Create Exchange 🎉"),
-e("button",{className:"btn btn-glass",onClick:function(){p.nav("dashboard")}},"Cancel"))))}
+e("button",{className:"btn btn-glass",onClick:function(){p.nav("dashboard")}},"Cancel")))))}
 
 // Wishlist
 function WishlistPanel(p){
 var _i=us([]),items=_i[0],si=_i[1],_l=us(true),ld=_l[0],sl=_l[1],_s=us(false),show=_s[0],ss=_s[1];
 var _nn=us(""),nn=_nn[0],snn=_nn[1],_nu=us(""),nu=_nu[0],snu=_nu[1],_np=us(""),np=_np[0],snp=_np[1],_no=us(""),no=_no[0],sno=_no[1],_sv=us(false),sv=_sv[0],ssv=_sv[1];
+var _pv=us(null),preview=_pv[0],sPv=_pv[1],_fl=us(false),fetching=_fl[0],sFl=_fl[1];
 function load(){sb.q("wishlist_items",{filters:"exchange_id=eq."+p.eid+"&user_id=eq."+p.uid+"&order=created_at.asc"}).then(function(r){si(r.data||[]);sl(false)})}
 ue(function(){load()},[p.eid,p.uid]);
-function add(){if(!nn.trim())return;ssv(true);sb.q("wishlist_items",{method:"POST",body:{exchange_id:p.eid,user_id:p.uid,name:nn.trim(),url:nu.trim()||null,price:np?parseFloat(np):null,notes:no.trim()||null}}).then(function(){snn("");snu("");snp("");sno("");ssv(false);ss(false);load()})}
+function onUrlChange(val){snu(val);sPv(null);if(val&&val.length>10&&(val.startsWith("http://")||val.startsWith("https://"))){sFl(true);fetchLinkPreview(val,function(data){sFl(false);if(data){sPv(data);if(data.title&&!nn)snn(data.title)}})}}
+function add(){if(!nn.trim())return;ssv(true);sb.q("wishlist_items",{method:"POST",body:{exchange_id:p.eid,user_id:p.uid,name:nn.trim(),url:nu.trim()||null,price:np?parseFloat(np):null,notes:no.trim()||null,image_url:preview&&preview.image||null}}).then(function(){snn("");snu("");snp("");sno("");ssv(false);ss(false);sPv(null);load()})}
 function del(id){sb.q("wishlist_items",{method:"DELETE",filters:"id=eq."+id}).then(load)}
 function togBought(item){sb.q("wishlist_items",{method:"PATCH",body:{is_purchased:!item.is_purchased},filters:"id=eq."+item.id}).then(load)}
 if(ld)return e("div",{style:{display:"flex",justifyContent:"center",padding:32}},e("div",{className:"spinner"}));
@@ -399,11 +479,14 @@ return e("div",null,
 p.own?e("div",{style:{marginBottom:14}},
 !show?e("button",{className:"btn btn-lime btn-sm",onClick:function(){ss(true)}},"+ Add item"):
 e("div",{className:"add-form"},
-e("div",{className:"add-row"},e("div",null,e("label",{className:"input-label"},"Item name *"),e("input",{className:"input",placeholder:"e.g. Sony WH-1000XM5",value:nn,onChange:function(ev){snn(ev.target.value)}})),e("div",null,e("label",{className:"input-label"},"Price ($)"),e("input",{className:"input",type:"number",placeholder:"0",value:np,onChange:function(ev){snp(ev.target.value)}}))),
-e("div",{style:{marginTop:8}},e("label",{className:"input-label"},"Link"),e("input",{className:"input",placeholder:"https://...",value:nu,onChange:function(ev){snu(ev.target.value)}})),
+e("div",null,e("label",{className:"input-label"},"Paste a link (we'll grab the details)"),e("input",{className:"input",placeholder:"https://amazon.com/...",value:nu,onChange:function(ev){onUrlChange(ev.target.value)}})),
+fetching?e("div",{style:{padding:"8px 0",color:"var(--text3)",fontSize:12}},"Fetching preview…"):null,
+preview?e("div",{className:"wish-preview"},preview.image?e("img",{src:preview.image,alt:""}):null,e("div",{className:"wish-preview-info"},e("div",{className:"title"},preview.title||""),e("div",{className:"domain"},preview.domain||""))):null,
+e("div",{className:"add-row",style:{marginTop:8}},e("div",null,e("label",{className:"input-label"},"Item name *"),e("input",{className:"input",placeholder:"e.g. Sony WH-1000XM5",value:nn,onChange:function(ev){snn(ev.target.value)}})),e("div",null,e("label",{className:"input-label"},"Price ($)"),e("input",{className:"input",type:"number",placeholder:"0",value:np,onChange:function(ev){snp(ev.target.value)}}))),
 e("div",{style:{display:"flex",gap:6,marginTop:10}},e("button",{className:"btn btn-lime btn-sm",onClick:add,disabled:sv},sv?"Adding…":"Add"),e("button",{className:"btn btn-glass btn-sm",onClick:function(){ss(false)}},"Cancel")))):null,
 items.length===0?e("div",{style:{textAlign:"center",padding:"24px 0",color:"var(--text3)",fontSize:13}},p.own?"Add items so your Santa knows what to get you.":"No items yet."):
 e("div",null,items.map(function(item){return e("div",{key:item.id,className:"wish-item"+(item.is_purchased?" wish-purchased":"")},
+item.image_url?e("img",{src:item.image_url,style:{width:42,height:42,borderRadius:8,objectFit:"cover",flexShrink:0}}):null,
 e("div",{className:"wish-info"},e("div",{className:"wish-name"},item.name),e("div",{className:"wish-meta"},item.notes||"",item.url?e("span",null," ",e("a",{href:item.url,target:"_blank",rel:"noopener"},"Link ↗")):null)),
 item.price?e("div",{className:"wish-price"},"$"+item.price):null,
 e("div",{style:{display:"flex",gap:6}},
@@ -428,7 +511,8 @@ function runDraw(){if(parts.length<3){toast.show("Need 3+ participants");return}
 function reveal(){srv(true);scf(true);setTimeout(function(){scf(false)},3500)}
 if(ld)return e("div",{className:"loading-page"},e("div",{className:"spinner"}));
 if(!ex)return e("div",{className:"empty-state",style:{paddingTop:100}},e("h3",null,"Exchange not found"),e("button",{className:"btn btn-lime",onClick:function(){p.nav("dashboard")}},"Back"));
-return e("div",{className:"detail-page"},
+return e("div",{className:"detail-page",style:ex.theme_color&&ex.theme_color!=="#FFFCF9"?{background:ex.theme_color,minHeight:"100vh",marginLeft:-44,marginRight:-44,paddingLeft:44,paddingRight:44,borderRadius:0}:{}},
+ex.cover_image?e("div",{style:{width:"100%",height:180,borderRadius:"var(--r-lg)",overflow:"hidden",marginBottom:20,position:"relative"}},e("img",{src:ex.cover_image,style:{width:"100%",height:"100%",objectFit:"cover"}}),e("div",{style:{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(29,30,24,.4) 0%,transparent 60%)"}})):null,
 e("div",{className:"detail-back",onClick:function(){p.nav("dashboard")}},"← Back"),
 e("div",{className:"detail-title"},ex.name),
 e("div",{className:"detail-meta-row"},e("span",{className:"detail-meta-pill"},"📅 "+fmtDate(ex.exchange_date)),ex.budget?e("span",{className:"detail-meta-pill"},"$"+ex.budget+" budget"):null,e("span",{className:"detail-meta-pill"},parts.length+" people"),isOrg?e("span",{className:"detail-meta-pill",style:{color:"var(--lime)"}},"Organizer"):null),
