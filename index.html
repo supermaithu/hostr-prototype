@@ -7,38 +7,39 @@
 <meta name="description" content="Create and manage gift exchanges with friends and family.">
 <meta name="theme-color" content="#0a0b14">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎁</text></svg>">
-<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiSG9zdHIiLCJzaG9ydF9uYW1lIjoiSG9zdHIiLCJzdGFydF91cmwiOiIvIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzBhMGIxNCIsInRoZW1lX2NvbG9yIjoiIzBhMGIxNCJ9">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0a0b14;--bg2:#12131f;--bg3:#1a1b2e;--glass:rgba(255,255,255,0.04);--glass2:rgba(255,255,255,0.07);--glass3:rgba(255,255,255,0.1);--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.12);--text:#fff;--text2:rgba(255,255,255,0.7);--text3:rgba(255,255,255,0.4);--accent:#6c5ce7;--accent2:#a29bfe;--accent-glow:rgba(108,92,231,0.3);--green:#00b894;--red:#e17055;--orange:#fdcb6e;--radius:16px;--radius-sm:10px;--radius-xs:6px}
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 #root{min-height:100vh;display:flex;flex-direction:column}
 .glass{background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
-.glass:hover{border-color:var(--border2)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:var(--radius-sm);font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;border:none;transition:all .2s;text-decoration:none}
 .btn:disabled{opacity:.5;cursor:not-allowed}
 .btn-primary{background:var(--accent);color:#fff;box-shadow:0 4px 20px var(--accent-glow)}
-.btn-primary:hover:not(:disabled){background:#7c6ef7;transform:translateY(-1px);box-shadow:0 6px 24px var(--accent-glow)}
+.btn-primary:hover:not(:disabled){background:#7c6ef7;transform:translateY(-1px)}
 .btn-secondary{background:var(--glass2);color:var(--text);border:1px solid var(--border)}
-.btn-secondary:hover{background:var(--glass3);border-color:var(--border2)}
 .btn-ghost{background:transparent;color:var(--text2)}
 .btn-ghost:hover{color:var(--text);background:var(--glass)}
-.btn-full{width:100%}.btn-sm{padding:8px 16px;font-size:13px}.btn-lg{padding:16px 32px;font-size:17px}
+.btn-full{width:100%}
+.btn-sm{padding:8px 16px;font-size:13px}
+.btn-lg{padding:16px 32px;font-size:17px}
 .input-group{display:flex;flex-direction:column;gap:6px}
 .input-group label{font-size:13px;font-weight:500;color:var(--text2)}
 .input{width:100%;padding:14px 16px;background:var(--glass);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:inherit;font-size:15px;transition:all .2s;outline:none}
 .input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
 .input::placeholder{color:var(--text3)}
 textarea.input{resize:vertical;min-height:80px}
+input[type="date"]{color-scheme:dark}
+input[type="number"]{-moz-appearance:textfield}
+input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--border);background:rgba(10,11,20,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:sticky;top:0;z-index:100}
 .nav-logo{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700;color:var(--text);cursor:pointer}
-.nav-logo span{font-size:20px}
 .nav-actions{display:flex;gap:8px;align-items:center}
-.nav-avatar{width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
-.nav-avatar:hover{background:#7c6ef7}
+.nav-avatar{width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;cursor:pointer}
 .auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden}
 .auth-page::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);top:-200px;right:-100px;opacity:.5;pointer-events:none}
 .auth-page::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(162,155,254,0.15) 0%,transparent 70%);bottom:-150px;left:-100px;opacity:.5;pointer-events:none}
@@ -48,50 +49,43 @@ textarea.input{resize:vertical;min-height:80px}
 .auth-form{display:flex;flex-direction:column;gap:20px}
 .auth-footer{text-align:center;margin-top:24px;font-size:14px;color:var(--text2)}
 .auth-footer a{color:var(--accent2);cursor:pointer;text-decoration:none}
-.auth-footer a:hover{text-decoration:underline}
 .auth-error{background:rgba(225,112,85,0.1);border:1px solid rgba(225,112,85,0.3);border-radius:var(--radius-sm);padding:12px 16px;color:var(--red);font-size:14px}
 .dashboard{padding:32px 24px;max-width:900px;margin:0 auto;width:100%}
 .dash-header{margin-bottom:32px}
 .dash-header h1{font-family:'Instrument Serif',serif;font-size:28px;margin-bottom:4px}
 .dash-header p{color:var(--text2);font-size:15px}
 .dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.exchange-card{padding:24px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.exchange-card{padding:24px;cursor:pointer;transition:all .25s;overflow:hidden}
 .exchange-card:hover{transform:translateY(-2px);border-color:var(--accent)}
 .exchange-card .emoji{font-size:32px;margin-bottom:12px;display:block}
 .exchange-card h3{font-size:17px;font-weight:600;margin-bottom:8px}
 .exchange-card .meta{display:flex;flex-wrap:wrap;gap:12px;color:var(--text2);font-size:13px}
-.exchange-card .meta span{display:flex;align-items:center;gap:4px}
 .create-card{padding:24px;cursor:pointer;transition:all .25s;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;border-style:dashed}
 .create-card:hover{border-color:var(--accent);background:var(--glass2)}
-.create-card .plus{font-size:32px;color:var(--accent2);margin-bottom:8px}
-.create-card span{color:var(--text2);font-size:14px}
 .empty-state{text-align:center;padding:60px 24px}
 .empty-state .icon{font-size:48px;margin-bottom:16px}
 .empty-state h3{font-size:20px;margin-bottom:8px}
 .empty-state p{color:var(--text2);font-size:15px;margin-bottom:24px;max-width:360px;margin-left:auto;margin-right:auto}
-.create-page{padding:32px 24px;max-width:600px;margin:0 auto;width:100%}
+.create-page,.detail-page{padding:32px 24px;max-width:800px;margin:0 auto;width:100%}
 .create-page h1{font-family:'Instrument Serif',serif;font-size:28px;margin-bottom:8px}
 .create-page .subtitle{color:var(--text2);margin-bottom:32px}
 .create-form{display:flex;flex-direction:column;gap:24px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .emoji-picker{display:flex;gap:8px;flex-wrap:wrap}
 .emoji-opt{width:44px;height:44px;border-radius:var(--radius-xs);background:var(--glass);border:2px solid transparent;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;transition:all .2s}
-.emoji-opt:hover{background:var(--glass2)}
 .emoji-opt.active{border-color:var(--accent);background:var(--glass3)}
 .form-actions{display:flex;gap:12px;margin-top:8px}
-.detail-page{padding:32px 24px;max-width:800px;margin:0 auto;width:100%}
 .detail-header{margin-bottom:32px}
 .detail-header .back{color:var(--text2);font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;margin-bottom:16px}
 .detail-header .back:hover{color:var(--text)}
 .detail-header h1{font-family:'Instrument Serif',serif;font-size:28px;display:flex;align-items:center;gap:12px}
 .detail-header .meta-row{display:flex;flex-wrap:wrap;gap:16px;margin-top:12px;color:var(--text2);font-size:14px}
-.detail-header .meta-row span{display:flex;align-items:center;gap:6px}
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:28px}
 .stat-card{padding:20px;text-align:center}
-.stat-card .value{font-size:24px;font-weight:700;color:var(--text)}
+.stat-card .value{font-size:24px;font-weight:700}
 .stat-card .label{font-size:12px;color:var(--text2);margin-top:4px}
 .invite-box{padding:20px;margin-bottom:28px;display:flex;align-items:center;gap:16px}
-.invite-url{flex:1;padding:10px 14px;background:var(--bg);border-radius:var(--radius-xs);font-size:13px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:'DM Sans',monospace}
+.invite-url{flex:1;padding:10px 14px;background:var(--bg);border-radius:var(--radius-xs);font-size:13px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .section-title{font-size:16px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
 .participants-list{display:flex;flex-direction:column;gap:8px}
 .participant-row{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:var(--radius-sm);background:var(--glass);border:1px solid var(--border)}
@@ -100,311 +94,304 @@ textarea.input{resize:vertical;min-height:80px}
 .participant-row .name{font-size:14px;font-weight:500}
 .participant-row .role{font-size:12px;color:var(--text3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .badge{font-size:11px;padding:3px 8px;border-radius:20px;font-weight:500;white-space:nowrap}
-.badge-organizer{background:rgba(108,92,231,0.2);color:var(--accent2)}
+.badge-org{background:rgba(108,92,231,0.2);color:var(--accent2)}
 .badge-joined{background:rgba(0,184,148,0.15);color:var(--green)}
 .join-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden}
 .join-page::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);top:-200px;left:50%;transform:translateX(-50%);opacity:.4;pointer-events:none}
 .join-card{width:100%;max-width:440px;padding:40px;text-align:center;position:relative;z-index:1}
-.join-card .emoji{font-size:48px;margin-bottom:16px}
 .join-card h1{font-family:'Instrument Serif',serif;font-size:28px;margin-bottom:8px}
-.join-card .desc{color:var(--text2);font-size:15px;margin-bottom:8px}
-.join-card .host{color:var(--text3);font-size:13px;margin-bottom:28px}
-.join-details{display:flex;justify-content:center;gap:24px;margin-bottom:28px}
-.join-detail{text-align:center}
-.join-detail .val{font-size:18px;font-weight:600}
-.join-detail .lbl{font-size:12px;color:var(--text3);margin-top:2px}
-.loading-page{min-height:100vh;display:flex;align-items:center;justify-content:center}
-.spinner{width:32px;height:32px;border:3px solid var(--glass3);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:var(--radius-sm);background:var(--bg3);border:1px solid var(--border2);color:var(--text);font-size:14px;z-index:1000;animation:fadeUp .3s ease;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
-.dropdown-menu{position:absolute;top:100%;right:0;margin-top:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:8px;min-width:180px;z-index:200;animation:fadeUp .2s ease;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
-.tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:1px solid var(--border);padding-bottom:0}
+.tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:1px solid var(--border)}
 .tab{padding:10px 20px;font-size:14px;font-weight:500;color:var(--text3);cursor:pointer;border:none;background:none;font-family:inherit;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s}
 .tab:hover{color:var(--text2)}
 .tab.active{color:var(--accent2);border-bottom-color:var(--accent)}
-.wishlist-grid{display:flex;flex-direction:column;gap:10px}
-.wish-item{display:flex;align-items:center;gap:14px;padding:16px;border-radius:var(--radius-sm);background:var(--glass);border:1px solid var(--border);transition:all .2s}
-.wish-item:hover{border-color:var(--border2)}
+.wish-item{display:flex;align-items:center;gap:14px;padding:16px;border-radius:var(--radius-sm);background:var(--glass);border:1px solid var(--border);margin-bottom:10px}
 .wish-item .wish-info{flex:1;min-width:0}
 .wish-item .wish-name{font-size:15px;font-weight:500;margin-bottom:2px}
-.wish-item .wish-meta{font-size:12px;color:var(--text3);display:flex;gap:12px;flex-wrap:wrap}
-.wish-item .wish-price{font-size:15px;font-weight:600;color:var(--green);white-space:nowrap}
-.wish-item .wish-link{color:var(--accent2);font-size:12px;text-decoration:none}
-.wish-item .wish-link:hover{text-decoration:underline}
+.wish-item .wish-meta{font-size:12px;color:var(--text3)}
 .wish-purchased{opacity:.5}
 .wish-purchased .wish-name{text-decoration:line-through}
-.add-wish-form{display:flex;flex-direction:column;gap:12px;padding:20px;margin-bottom:20px}
-.add-wish-row{display:grid;grid-template-columns:1fr 120px;gap:12px}
-.envelope{width:120px;height:90px;margin:0 auto 24px;cursor:pointer;position:relative;transition:all .3s}
+.add-form{display:flex;flex-direction:column;gap:12px;padding:20px;margin-bottom:20px}
+.add-row{display:grid;grid-template-columns:1fr 120px;gap:12px}
+.envelope{width:120px;height:90px;margin:0 auto 24px;cursor:pointer;transition:all .3s}
 .envelope:hover{transform:scale(1.05)}
 .envelope-body{width:100%;height:100%;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:36px;box-shadow:0 8px 32px var(--accent-glow)}
+.loading-page{min-height:100vh;display:flex;align-items:center;justify-content:center}
+.spinner{width:32px;height:32px;border:3px solid var(--glass3);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:var(--radius-sm);background:var(--bg3);border:1px solid var(--border2);color:var(--text);font-size:14px;z-index:1000;animation:fadeUp .3s ease}
+.dropdown-menu{position:absolute;top:100%;right:0;margin-top:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:8px;min-width:180px;z-index:200;animation:fadeUp .2s ease}
 .confetti{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:600;overflow:hidden}
 .confetti-piece{position:absolute;width:10px;height:10px;top:-20px;animation:confettiFall 3s ease-in forwards}
 @keyframes confettiFall{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media(max-width:640px){
-.nav{padding:12px 16px}
-.nav-logo{font-size:16px}
-.dashboard,.create-page,.detail-page{padding:20px 16px}
-.auth-card{padding:28px 20px}
-.auth-card h1{font-size:26px}
-.auth-card .subtitle{font-size:14px;margin-bottom:24px}
-.auth-form{gap:16px}
-.form-row,.add-wish-row{grid-template-columns:1fr}
-.stats-grid{grid-template-columns:1fr 1fr;gap:8px}
-.stat-card{padding:14px}
-.stat-card .value{font-size:20px}
-.stat-card .label{font-size:11px}
+.nav{padding:12px 16px}.dashboard,.create-page,.detail-page{padding:20px 16px}.auth-card{padding:28px 20px}
+.auth-card h1{font-size:26px}.form-row,.add-row{grid-template-columns:1fr}
+.stats-grid{grid-template-columns:1fr 1fr;gap:8px}.stat-card{padding:14px}.stat-card .value{font-size:20px}
 .invite-box{flex-direction:column;align-items:stretch;padding:16px}
-.invite-url{font-size:12px;padding:8px 12px;word-break:break-all;white-space:normal}
-.join-card{padding:28px 20px}
-.join-card h1{font-size:24px}
-.join-card .emoji{font-size:40px}
-.join-details{gap:16px}
-.form-actions{flex-direction:column}
-.dash-grid{grid-template-columns:1fr}
-.dash-header h1{font-size:24px}
-.tabs{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}
-.tabs::-webkit-scrollbar{display:none}
-.tab{padding:10px 16px;font-size:13px;white-space:nowrap;flex-shrink:0}
-.detail-header h1{font-size:22px;flex-wrap:wrap}
-.detail-header .meta-row{gap:10px;font-size:13px}
-.section-title{font-size:15px}
-.participant-row{padding:12px 14px;gap:10px}
-.participant-row .avatar{width:32px;height:32px;font-size:12px}
-.participant-row .name{font-size:13px}
-.participant-row .role{font-size:11px}
-.badge{font-size:10px;padding:2px 6px}
-.wish-item{flex-wrap:wrap;gap:10px;padding:14px}
-.wish-item .wish-name{font-size:14px}
-.wish-item .wish-price{font-size:14px}
-.wish-item .wish-meta{font-size:11px}
-.add-wish-form{padding:16px}
-.emoji-picker{gap:6px}
-.emoji-opt{width:40px;height:40px;font-size:18px}
-.create-card{min-height:120px}
-.exchange-card{padding:20px}
-.exchange-card .emoji{font-size:28px;margin-bottom:8px}
-.exchange-card h3{font-size:16px}
-.btn-lg{padding:14px 24px;font-size:16px}
-.input{padding:12px 14px;font-size:14px}
-.dropdown-menu{min-width:160px;right:-8px}
-.empty-state{padding:40px 16px}
-.empty-state .icon{font-size:40px}
-.empty-state h3{font-size:18px}
-.empty-state p{font-size:14px}
-.envelope{width:100px;height:75px}
-.envelope-body{font-size:28px}
-.toast{left:16px;right:16px;transform:none;text-align:center;font-size:13px;padding:10px 16px;bottom:16px}
+.invite-url{font-size:12px;word-break:break-all;white-space:normal}
+.join-card{padding:28px 20px}.form-actions{flex-direction:column}.dash-grid{grid-template-columns:1fr}
+.tabs{overflow-x:auto;-webkit-overflow-scrolling:touch}.tab{white-space:nowrap;flex-shrink:0}
+.detail-header h1{font-size:22px;flex-wrap:wrap}.wish-item{flex-wrap:wrap;gap:10px;padding:14px}
+.participant-row .avatar{width:32px;height:32px;font-size:12px}.exchange-card{padding:20px}
+.btn-lg{padding:14px 24px;font-size:16px}.toast{left:16px;right:16px;transform:none;text-align:center}
+.empty-state{padding:40px 16px}.create-card{min-height:120px}
 }
-
-/* Touch optimization */
-@media(hover:none){
-.btn:active{transform:scale(0.97)}
-.btn-primary:active{transform:scale(0.97)}
-.exchange-card:active{transform:scale(0.98)}
-.glass:hover{border-color:var(--border)}
-.emoji-opt:active{background:var(--glass3)}
-}
-
-/* Safe area for notched phones */
-@supports(padding:max(0px)){
-.nav{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
-.dashboard,.create-page,.detail-page,.auth-page{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
-.toast{bottom:max(16px,env(safe-area-inset-bottom))}
-}
-
-/* Dark theme input fixes */
-input[type="date"]{color-scheme:dark}
-input[type="number"]{-moz-appearance:textfield}
-input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
-
-/* Remove tap highlights */
-*{-webkit-tap-highlight-color:transparent}
-
-/* Prevent text size adjust on rotation */
-html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-
-/* Small phones (iPhone SE, etc) */
-@media(max-width:375px){
-.auth-card{padding:24px 16px}
-.auth-card h1{font-size:24px}
-.join-card{padding:24px 16px}
-.stats-grid{gap:6px}
-.stat-card{padding:12px}
-.stat-card .value{font-size:18px}
-.emoji-opt{width:36px;height:36px;font-size:16px}
-.detail-header h1{font-size:20px}
-}
+@media(max-width:375px){.auth-card{padding:24px 16px}.auth-card h1{font-size:24px}.detail-header h1{font-size:20px}}
+@media(hover:none){.btn:active{transform:scale(0.97)}.exchange-card:hover{transform:none}}
+@supports(padding:max(0px)){.nav{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}}
 </style>
 </head>
 <body>
 <div id="root"><div class="loading-page"><div class="spinner"></div></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
-<script type="text/babel">
-const {useState,useEffect,useCallback,createContext,useContext}=React;
-const SUPABASE_URL="https://atfofxrtqwdrtbmdifou.supabase.co";
-const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0Zm9meHJ0cXdkcnRibWRpZm91Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3NjE4ODYsImV4cCI6MjA4ODMzNzg4Nn0.9eVd7HAi7I-qQV3FDcP6ecc9lyxSMPRN7Gj7q9lacDI";
+<script>
+"use strict";
+var e=React.createElement,us=React.useState,ue=React.useEffect,uc=React.useCallback,cc=React.createContext,ucx=React.useContext;
+var SB_URL="https://atfofxrtqwdrtbmdifou.supabase.co";
+var SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0Zm9meHJ0cXdkcnRibWRpZm91Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3NjE4ODYsImV4cCI6MjA4ODMzNzg4Nn0.9eVd7HAi7I-qQV3FDcP6ecc9lyxSMPRN7Gj7q9lacDI";
 
-const supabase={
+// Supabase client
+var sb={
 auth:{
-async signUp({email,password,options}){const res=await fetch(SUPABASE_URL+"/auth/v1/signup",{method:"POST",headers:{"Content-Type":"application/json",apikey:SUPABASE_ANON_KEY},body:JSON.stringify({email,password,data:options?.data||{}})});const data=await res.json();if(!res.ok)return{data:null,error:data};if(data.access_token)localStorage.setItem("sb_token",data.access_token);return{data,error:null};},
-async signInWithPassword({email,password}){const res=await fetch(SUPABASE_URL+"/auth/v1/token?grant_type=password",{method:"POST",headers:{"Content-Type":"application/json",apikey:SUPABASE_ANON_KEY},body:JSON.stringify({email,password})});const data=await res.json();if(!res.ok)return{data:null,error:data};if(data.access_token)localStorage.setItem("sb_token",data.access_token);return{data,error:null};},
-async getUser(){const token=localStorage.getItem("sb_token");if(!token)return{data:{user:null},error:null};const res=await fetch(SUPABASE_URL+"/auth/v1/user",{headers:{Authorization:"Bearer "+token,apikey:SUPABASE_ANON_KEY}});if(!res.ok){localStorage.removeItem("sb_token");return{data:{user:null},error:"x"};}return{data:{user:await res.json()},error:null};},
-async signOut(){localStorage.removeItem("sb_token");return{error:null};}
+signUp:function(o){return fetch(SB_URL+"/auth/v1/signup",{method:"POST",headers:{"Content-Type":"application/json",apikey:SB_KEY},body:JSON.stringify({email:o.email,password:o.password,data:o.options&&o.options.data||{}})}).then(function(r){return r.json().then(function(d){if(!r.ok)return{data:null,error:d};if(d.access_token)localStorage.setItem("sb_token",d.access_token);return{data:d,error:null}})})},
+signIn:function(o){return fetch(SB_URL+"/auth/v1/token?grant_type=password",{method:"POST",headers:{"Content-Type":"application/json",apikey:SB_KEY},body:JSON.stringify({email:o.email,password:o.password})}).then(function(r){return r.json().then(function(d){if(!r.ok)return{data:null,error:d};if(d.access_token)localStorage.setItem("sb_token",d.access_token);return{data:d,error:null}})})},
+getUser:function(){var t=localStorage.getItem("sb_token");if(!t)return Promise.resolve({data:{user:null},error:null});return fetch(SB_URL+"/auth/v1/user",{headers:{Authorization:"Bearer "+t,apikey:SB_KEY}}).then(function(r){if(!r.ok){localStorage.removeItem("sb_token");return{data:{user:null},error:"x"};}return r.json().then(function(u){return{data:{user:u},error:null}})})},
+signOut:function(){localStorage.removeItem("sb_token");return Promise.resolve({error:null})}
 },
-from(table){
-const token=localStorage.getItem("sb_token");
-const h={"Content-Type":"application/json",apikey:SUPABASE_ANON_KEY,Prefer:"return=representation"};
-if(token)h["Authorization"]="Bearer "+token;
-const url=SUPABASE_URL+"/rest/v1/"+table;
-const chain={_s:"*",_f:[],_o:"",_l:null,_si:false,
-select(c){chain._s=c||"*";return chain;},eq(c,v){chain._f.push(c+"=eq."+v);return chain;},order(c,o){chain._o=c+"."+((o?.ascending!==false)?"asc":"desc");return chain;},limit(n){chain._l=n;return chain;},single(){chain._si=true;return chain;},
-async then(resolve){const hh={...h};if(chain._si)hh.Accept="application/vnd.pgrst.object+json";let u=url+"?select="+encodeURIComponent(chain._s);chain._f.forEach(f=>{u+="&"+f;});if(chain._o)u+="&order="+chain._o;if(chain._l)u+="&limit="+chain._l;try{const r=await fetch(u,{headers:hh});if(!r.ok){resolve({data:null,error:await r.json()});return;}resolve({data:await r.json(),error:null});}catch(err){resolve({data:null,error:err});}},
-insert(rows){return{select(cols){return{single(){return{async then(resolve){try{const r=await fetch(url+"?select="+encodeURIComponent(cols||"*"),{method:"POST",headers:{...h,Accept:"application/vnd.pgrst.object+json"},body:JSON.stringify(Array.isArray(rows)?rows:[rows])});if(!r.ok){resolve({data:null,error:await r.json()});return;}resolve({data:await r.json(),error:null});}catch(err){resolve({data:null,error:err});}}};},async then(resolve){try{const r=await fetch(url+"?select="+encodeURIComponent(cols||"*"),{method:"POST",headers:h,body:JSON.stringify(Array.isArray(rows)?rows:[rows])});if(!r.ok){resolve({data:null,error:await r.json()});return;}resolve({data:await r.json(),error:null});}catch(err){resolve({data:null,error:err});}}};},async then(resolve){try{const r=await fetch(url,{method:"POST",headers:h,body:JSON.stringify(Array.isArray(rows)?rows:[rows])});if(!r.ok){resolve({data:null,error:await r.json()});return;}resolve({data:await r.json(),error:null});}catch(err){resolve({data:null,error:err});}}};},
-update(vals){return{eq(col,val){return{select(cols){return{single(){return{async then(resolve){try{const r=await fetch(url+"?"+col+"=eq."+val+"&select="+encodeURIComponent(cols||"*"),{method:"PATCH",headers:{...h,Accept:"application/vnd.pgrst.object+json"},body:JSON.stringify(vals)});if(!r.ok){resolve({data:null,error:await r.json()});return;}resolve({data:await r.json(),error:null});}catch(err){resolve({data:null,error:err});}}};},async then(resolve){try{const r=await fetch(url+"?"+col+"=eq."+val+"&select="+encodeURIComponent(cols||"*"),{method:"PATCH",headers:h,body:JSON.stringify(vals)});if(!r.ok){resolve({data:null,error:await r.json()});return;}resolve({data:await r.json(),error:null});}catch(err){resolve({data:null,error:err});}}};},async then(resolve){try{const r=await fetch(url+"?"+col+"=eq."+val,{method:"PATCH",headers:h,body:JSON.stringify(vals)});if(!r.ok){resolve({error:await r.json()});return;}resolve({error:null});}catch(err){resolve({error:err});}}};};},
-delete(){return{eq(col,val){return{async then(resolve){try{const r=await fetch(url+"?"+col+"=eq."+val,{method:"DELETE",headers:h});if(!r.ok){resolve({error:await r.json()});return;}resolve({error:null});}catch(err){resolve({error:err});}}};};},
-};return chain;}
+q:function(table,method,body,filters,sel,single){
+var t=localStorage.getItem("sb_token");
+var h={"Content-Type":"application/json",apikey:SB_KEY,Prefer:"return=representation"};
+if(t)h.Authorization="Bearer "+t;
+if(single)h.Accept="application/vnd.pgrst.object+json";
+var u=SB_URL+"/rest/v1/"+table;
+if(method==="GET"||!method){u+="?select="+encodeURIComponent(sel||"*");if(filters)u+="&"+filters;}
+else if(method==="POST"){u+="?select="+encodeURIComponent(sel||"*");}
+else if(method==="PATCH"||method==="DELETE"){if(filters)u+="?"+filters;if(sel&&method==="PATCH")u+=(filters?"&":"?")+"select="+encodeURIComponent(sel);}
+var opts={method:method||"GET",headers:h};
+if(body)opts.body=JSON.stringify(Array.isArray(body)?body:[body]);
+return fetch(u,opts).then(function(r){if(!r.ok)return r.json().then(function(e){return{data:null,error:e}});if(method==="DELETE")return{error:null};return r.json().then(function(d){return{data:d,error:null}})}).catch(function(err){return{data:null,error:err}})
+}
 };
 
-const AuthCtx=createContext();
-function AuthProvider({children}){
-const[user,setUser]=useState(null);const[profile,setProfile]=useState(null);const[loading,setLoading]=useState(true);
-const loadProfile=useCallback(async(u)=>{if(!u){setProfile(null);return;}const{data}=await supabase.from("profiles").select("*").eq("id",u.id).single();setProfile(data);},[]);
-useEffect(()=>{(async()=>{const{data:{user:u}}=await supabase.auth.getUser();setUser(u);if(u)await loadProfile(u);setLoading(false);})();},[]);
-const signUp=async(email,password,name)=>{const{data,error}=await supabase.auth.signUp({email,password,options:{data:{display_name:name}}});if(error)return{error};const u=data.user||data;if(u?.id){await supabase.from("profiles").insert({id:u.id,display_name:name,email}).select("*").single();setUser(u);await loadProfile(u);}return{data,error:null};};
-const signIn=async(email,password)=>{const{data,error}=await supabase.auth.signInWithPassword({email,password});if(error)return{error};const u=data.user||data;setUser(u);await loadProfile(u);return{data,error:null};};
-const signOut=async()=>{await supabase.auth.signOut();setUser(null);setProfile(null);};
-return <AuthCtx.Provider value={{user,profile,loading,signUp,signIn,signOut}}>{children}</AuthCtx.Provider>;
+// Helpers
+function ini(n){if(!n)return"?";return n.split(" ").map(function(w){return w[0]}).join("").toUpperCase().slice(0,2)}
+function fmtDate(d){if(!d)return"TBD";return new Date(d+"T00:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"})}
+function daysTo(d){if(!d)return null;var diff=Math.ceil((new Date(d+"T00:00:00")-new Date())/864e5);if(diff<0)return"Past";if(diff===0)return"Today!";if(diff===1)return"Tomorrow";return diff+" days"}
+
+// Auth context
+var AuthCtx=cc(null);
+function AuthProvider(props){
+var _u=us(null),user=_u[0],setUser=_u[1];
+var _p=us(null),profile=_p[0],setProfile=_p[1];
+var _l=us(true),loading=_l[0],setLoading=_l[1];
+function loadProfile(u){if(!u){setProfile(null);return Promise.resolve();}return sb.q("profiles","GET","id=eq."+u.id,"*",true).then(function(r){setProfile(r.data)})}
+ue(function(){sb.auth.getUser().then(function(r){var u=r.data.user;setUser(u);if(u)loadProfile(u).then(function(){setLoading(false)});else setLoading(false)})},[]);
+var val={user:user,profile:profile,loading:loading,
+signUp:function(email,pw,name){return sb.auth.signUp({email:email,password:pw,options:{data:{display_name:name}}}).then(function(r){if(r.error)return r;var u=r.data.user||r.data;if(u&&u.id){return sb.q("profiles","POST",{id:u.id,display_name:name,email:email},null,"*",true).then(function(){setUser(u);return loadProfile(u).then(function(){return{error:null}})})}return{error:null}})},
+signIn:function(email,pw){return sb.auth.signIn({email:email,password:pw}).then(function(r){if(r.error)return r;var u=r.data.user||r.data;setUser(u);return loadProfile(u).then(function(){return{error:null}})})},
+signOut:function(){return sb.auth.signOut().then(function(){setUser(null);setProfile(null)})}
+};
+return e(AuthCtx.Provider,{value:val},props.children);
 }
-const useAuth=()=>useContext(AuthCtx);
-function initials(n){if(!n)return"?";return n.split(" ").map(w=>w[0]).join("").toUpperCase().slice(0,2);}
-function formatDate(d){if(!d)return"TBD";return new Date(d+"T00:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});}
-function daysUntil(d){if(!d)return null;const diff=Math.ceil((new Date(d+"T00:00:00")-new Date())/(864e5));if(diff<0)return"Past";if(diff===0)return"Today!";if(diff===1)return"Tomorrow";return diff+" days";}
-function useToast(){const[msg,setMsg]=useState(null);const show=(m)=>{setMsg(m);setTimeout(()=>setMsg(null),2800);};const Toast=msg?<div className="toast">{msg}</div>:null;return{show,Toast};}
+function useAuth(){return ucx(AuthCtx)}
 
-function Nav({onNavigate}){const{user,profile,signOut}=useAuth();const[m,setM]=useState(false);
-return<nav className="nav"><div className="nav-logo" onClick={()=>onNavigate("dashboard")}><span>🎁</span> Hostr</div>{user&&<div className="nav-actions"><button className="btn btn-sm btn-primary" onClick={()=>onNavigate("create")}>+ New</button><div style={{position:"relative"}}><div className="nav-avatar" onClick={()=>setM(!m)}>{initials(profile?.display_name)}</div>{m&&<div className="dropdown-menu"><div style={{padding:"8px 12px",fontSize:14,color:"var(--text2)",borderBottom:"1px solid var(--border)"}}>{profile?.display_name||user.email}</div><button className="btn btn-ghost btn-full" style={{justifyContent:"flex-start",marginTop:4}} onClick={async()=>{await signOut();setM(false);onNavigate("login");}}>Log out</button></div>}</div></div>}</nav>;}
+// Toast hook
+function useToast(){var _s=us(null),msg=_s[0],setMsg=_s[1];return{show:function(m){setMsg(m);setTimeout(function(){setMsg(null)},2800)},el:msg?e("div",{className:"toast"},msg):null}}
 
-function LoginScreen({onNavigate}){const{signIn}=useAuth();const[email,setEmail]=useState("");const[pw,setPw]=useState("");const[error,setError]=useState(null);const[ld,setLd]=useState(false);
-const go=async()=>{if(!email||!pw){setError("Please fill in all fields");return;}setError(null);setLd(true);const{error:e}=await signIn(email,pw);setLd(false);if(e){setError(e.error_description||e.message||e.msg||"Invalid email or password");return;}onNavigate("dashboard");};
-return<div className="auth-page"><div className="auth-card glass"><h1>Welcome back</h1><p className="subtitle">Sign in to your Hostr account</p>{error&&<div className="auth-error">{error}</div>}<div className="auth-form"><div className="input-group"><label>Email</label><input className="input" type="email" placeholder="you@example.com" value={email} onChange={e=>setEmail(e.target.value)}/></div><div className="input-group"><label>Password</label><input className="input" type="password" placeholder="••••••••" value={pw} onChange={e=>setPw(e.target.value)} onKeyDown={e=>e.key==="Enter"&&go()}/></div><button className="btn btn-primary btn-full btn-lg" onClick={go} disabled={ld}>{ld?"Signing in…":"Sign in"}</button></div><p className="auth-footer">Don't have an account? <a onClick={()=>onNavigate("signup")}>Sign up</a></p></div></div>;}
+// Nav
+function Nav(p){var a=useAuth(),_m=us(false),m=_m[0],sm=_m[1];
+return e("nav",{className:"nav"},
+e("div",{className:"nav-logo",onClick:function(){p.nav("dashboard")}},e("span",null,"🎁")," Hostr"),
+a.user?e("div",{className:"nav-actions"},
+e("button",{className:"btn btn-sm btn-primary",onClick:function(){p.nav("create")}},"+New"),
+e("div",{style:{position:"relative"}},
+e("div",{className:"nav-avatar",onClick:function(){sm(!m)}},ini(a.profile&&a.profile.display_name)),
+m?e("div",{className:"dropdown-menu"},
+e("div",{style:{padding:"8px 12px",fontSize:14,color:"var(--text2)",borderBottom:"1px solid var(--border)"}},a.profile?a.profile.display_name:a.user.email),
+e("button",{className:"btn btn-ghost btn-full",style:{justifyContent:"flex-start",marginTop:4},onClick:function(){a.signOut().then(function(){sm(false);p.nav("login")})}},"Log out")
+):null
+)
+):null
+)
+}
 
-function SignupScreen({onNavigate}){const{signUp}=useAuth();const[name,setName]=useState("");const[email,setEmail]=useState("");const[pw,setPw]=useState("");const[error,setError]=useState(null);const[ld,setLd]=useState(false);
-const go=async()=>{if(!name.trim()){setError("Name is required");return;}if(!email){setError("Email is required");return;}if(pw.length<6){setError("Password must be at least 6 characters");return;}setError(null);setLd(true);const{error:e}=await signUp(email,pw,name.trim());setLd(false);if(e){setError(e.error_description||e.message||e.msg||"Could not create account");return;}onNavigate("dashboard");};
-return<div className="auth-page"><div className="auth-card glass"><h1>Create your account</h1><p className="subtitle">Start hosting better gift exchanges</p>{error&&<div className="auth-error">{error}</div>}<div className="auth-form"><div className="input-group"><label>Your name</label><input className="input" placeholder="Jamie Chen" value={name} onChange={e=>setName(e.target.value)}/></div><div className="input-group"><label>Email</label><input className="input" type="email" placeholder="you@example.com" value={email} onChange={e=>setEmail(e.target.value)}/></div><div className="input-group"><label>Password</label><input className="input" type="password" placeholder="At least 6 characters" value={pw} onChange={e=>setPw(e.target.value)} onKeyDown={e=>e.key==="Enter"&&go()}/></div><button className="btn btn-primary btn-full btn-lg" onClick={go} disabled={ld}>{ld?"Creating account…":"Get started"}</button></div><p className="auth-footer">Already have an account? <a onClick={()=>onNavigate("login")}>Sign in</a></p></div></div>;}
+// Login
+function LoginScreen(p){var a=useAuth(),_e=us(""),em=_e[0],se=_e[1],_p=us(""),pw=_p[0],sp=_p[1],_er=us(null),err=_er[0],ser=_er[1],_l=us(false),ld=_l[0],sl=_l[1];
+function go(){if(!em||!pw){ser("Please fill in all fields");return}ser(null);sl(true);a.signIn(em,pw).then(function(r){sl(false);if(r.error){ser(r.error.error_description||r.error.message||r.error.msg||"Invalid email or password");return}p.nav("dashboard")})}
+return e("div",{className:"auth-page"},e("div",{className:"auth-card glass"},
+e("h1",null,"Welcome back"),e("p",{className:"subtitle"},"Sign in to your Hostr account"),
+err?e("div",{className:"auth-error"},err):null,
+e("div",{className:"auth-form"},
+e("div",{className:"input-group"},e("label",null,"Email"),e("input",{className:"input",type:"email",placeholder:"you@example.com",value:em,onChange:function(ev){se(ev.target.value)}})),
+e("div",{className:"input-group"},e("label",null,"Password"),e("input",{className:"input",type:"password",placeholder:"••••••••",value:pw,onChange:function(ev){sp(ev.target.value)},onKeyDown:function(ev){if(ev.key==="Enter")go()}})),
+e("button",{className:"btn btn-primary btn-full btn-lg",onClick:go,disabled:ld},ld?"Signing in…":"Sign in")
+),
+e("p",{className:"auth-footer"},"Don't have an account? ",e("a",{onClick:function(){p.nav("signup")}},"Sign up"))
+))}
 
-function DashboardScreen({onNavigate}){const{user,profile}=useAuth();const[exchanges,setExchanges]=useState([]);const[ld,setLd]=useState(true);
-useEffect(()=>{if(!user)return;(async()=>{const{data:organized}=await supabase.from("exchanges").select("*").eq("organizer_id",user.id).order("created_at",{ascending:false});const{data:parts}=await supabase.from("participants").select("exchange_id").eq("user_id",user.id);const pids=(parts||[]).map(p=>p.exchange_id);let joined=[];for(const eid of pids){if(organized&&organized.find(o=>o.id===eid))continue;const{data:ex}=await supabase.from("exchanges").select("*").eq("id",eid).single();if(ex)joined.push(ex);}setExchanges([...(organized||[]),...joined]);setLd(false);})();},[user]);
-const fn=profile?.display_name?.split(" ")[0]||"there";
-return<div className="dashboard" style={{animation:"fadeUp .4s ease"}}><div className="dash-header"><h1>Hey {fn} 👋</h1><p>{exchanges.length===0?"Create your first exchange to get started.":"You have "+exchanges.length+" exchange"+(exchanges.length>1?"s":"")+"."}</p></div>{ld?<div style={{display:"flex",justifyContent:"center",padding:60}}><div className="spinner"></div></div>:exchanges.length===0?<div className="empty-state"><div className="icon">🎁</div><h3>No exchanges yet</h3><p>Create your first gift exchange and invite your friends & family.</p><button className="btn btn-primary btn-lg" onClick={()=>onNavigate("create")}>Create an exchange</button></div>:<div className="dash-grid">{exchanges.map(ex=><div key={ex.id} className="exchange-card glass" onClick={()=>onNavigate("detail",{id:ex.id})}><span className="emoji">{ex.emoji||"🎁"}</span><h3>{ex.name}</h3><div className="meta"><span>📅 {formatDate(ex.exchange_date)}</span>{ex.budget&&<span>💰 ${ex.budget}</span>}{ex.exchange_date&&<span>⏰ {daysUntil(ex.exchange_date)}</span>}</div></div>)}<div className="create-card glass" onClick={()=>onNavigate("create")}><div className="plus">+</div><span>New exchange</span></div></div>}</div>;}
+// Signup
+function SignupScreen(p){var a=useAuth(),_n=us(""),nm=_n[0],sn=_n[1],_e=us(""),em=_e[0],se=_e[1],_p=us(""),pw=_p[0],sp=_p[1],_er=us(null),err=_er[0],ser=_er[1],_l=us(false),ld=_l[0],sl=_l[1];
+function go(){if(!nm.trim()){ser("Name is required");return}if(!em){ser("Email is required");return}if(pw.length<6){ser("Password must be at least 6 characters");return}ser(null);sl(true);a.signUp(em,pw,nm.trim()).then(function(r){sl(false);if(r.error){ser(r.error.error_description||r.error.message||r.error.msg||"Could not create account");return}p.nav("dashboard")})}
+return e("div",{className:"auth-page"},e("div",{className:"auth-card glass"},
+e("h1",null,"Create your account"),e("p",{className:"subtitle"},"Start hosting better gift exchanges"),
+err?e("div",{className:"auth-error"},err):null,
+e("div",{className:"auth-form"},
+e("div",{className:"input-group"},e("label",null,"Your name"),e("input",{className:"input",placeholder:"Jamie Chen",value:nm,onChange:function(ev){sn(ev.target.value)}})),
+e("div",{className:"input-group"},e("label",null,"Email"),e("input",{className:"input",type:"email",placeholder:"you@example.com",value:em,onChange:function(ev){se(ev.target.value)}})),
+e("div",{className:"input-group"},e("label",null,"Password"),e("input",{className:"input",type:"password",placeholder:"At least 6 characters",value:pw,onChange:function(ev){sp(ev.target.value)},onKeyDown:function(ev){if(ev.key==="Enter")go()}})),
+e("button",{className:"btn btn-primary btn-full btn-lg",onClick:go,disabled:ld},ld?"Creating account…":"Get started")
+),
+e("p",{className:"auth-footer"},"Already have an account? ",e("a",{onClick:function(){p.nav("login")}},"Sign in"))
+))}
 
-function CreateScreen({onNavigate}){const{user}=useAuth();const EMOJIS=["🎄","🎁","🎉","🎃","💝","🕎","🌸","🎂","🧧","❄️"];const[name,setName]=useState("");const[emoji,setEmoji]=useState("🎁");const[date,setDate]=useState("");const[budget,setBudget]=useState("");const[desc,setDesc]=useState("");const[ld,setLd]=useState(false);const[error,setError]=useState(null);
-const go=async()=>{if(!name.trim()){setError("Give your exchange a name");return;}setError(null);setLd(true);const ic=Math.random().toString(36).substring(2,8).toUpperCase();const{data,error:e}=await supabase.from("exchanges").insert({name:name.trim(),emoji,exchange_date:date||null,budget:budget?parseFloat(budget):null,description:desc.trim()||null,organizer_id:user.id,invite_code:ic,draw_done:false}).select("*").single();if(e){setError(e.message||e.details||"Failed");setLd(false);return;}await supabase.from("participants").insert({exchange_id:data.id,user_id:user.id,role:"organizer"});setLd(false);onNavigate("detail",{id:data.id});};
-return<div className="create-page" style={{animation:"fadeUp .4s ease"}}><div className="detail-header"><div className="back" onClick={()=>onNavigate("dashboard")}>← Back</div></div><h1>Create an exchange</h1><p className="subtitle">Set up the basics. You can always change these later.</p>{error&&<div className="auth-error" style={{marginBottom:16}}>{error}</div>}<div className="create-form"><div className="input-group"><label>Exchange name</label><input className="input" placeholder="e.g. Chen Family Christmas" value={name} onChange={e=>setName(e.target.value)}/></div><div className="input-group"><label>Pick an emoji</label><div className="emoji-picker">{EMOJIS.map(e=><div key={e} className={"emoji-opt"+(emoji===e?" active":"")} onClick={()=>setEmoji(e)}>{e}</div>)}</div></div><div className="form-row"><div className="input-group"><label>Exchange date</label><input className="input" type="date" value={date} onChange={e=>setDate(e.target.value)}/></div><div className="input-group"><label>Budget per person ($)</label><input className="input" type="number" placeholder="50" value={budget} onChange={e=>setBudget(e.target.value)}/></div></div><div className="input-group"><label>Description (optional)</label><textarea className="input" placeholder="Any notes…" value={desc} onChange={e=>setDesc(e.target.value)}></textarea></div><div className="form-actions"><button className="btn btn-primary btn-lg" onClick={go} disabled={ld} style={{flex:1}}>{ld?"Creating…":"Create exchange 🎉"}</button><button className="btn btn-secondary btn-lg" onClick={()=>onNavigate("dashboard")}>Cancel</button></div></div></div>;}
+// Dashboard
+function DashboardScreen(p){var a=useAuth(),_x=us([]),exs=_x[0],setExs=_x[1],_l=us(true),ld=_l[0],sl=_l[1];
+ue(function(){if(!a.user)return;sb.q("exchanges","GET","organizer_id=eq."+a.user.id+"&order=created_at.desc","*").then(function(r){var organized=r.data||[];sb.q("participants","GET","user_id=eq."+a.user.id,"exchange_id").then(function(r2){var pids=(r2.data||[]).map(function(p){return p.exchange_id});var promises=pids.filter(function(id){return!organized.find(function(o){return o.id===id})}).map(function(id){return sb.q("exchanges","GET","id=eq."+id,"*",true)});Promise.all(promises).then(function(results){var joined=results.filter(function(r){return r.data}).map(function(r){return r.data});setExs(organized.concat(joined));sl(false)})})})},[a.user]);
+var fn=a.profile?a.profile.display_name.split(" ")[0]:"there";
+return e("div",{className:"dashboard",style:{animation:"fadeUp .4s ease"}},
+e("div",{className:"dash-header"},e("h1",null,"Hey "+fn+" 👋"),e("p",null,exs.length===0?"Create your first exchange to get started.":"You have "+exs.length+" exchange"+(exs.length>1?"s":"")+".")),
+ld?e("div",{style:{display:"flex",justifyContent:"center",padding:60}},e("div",{className:"spinner"})):
+exs.length===0?e("div",{className:"empty-state"},e("div",{className:"icon"},"🎁"),e("h3",null,"No exchanges yet"),e("p",null,"Create your first gift exchange and invite your friends & family."),e("button",{className:"btn btn-primary btn-lg",onClick:function(){p.nav("create")}},"Create an exchange")):
+e("div",{className:"dash-grid"},
+exs.map(function(ex){return e("div",{key:ex.id,className:"exchange-card glass",onClick:function(){p.nav("detail",{id:ex.id})}},e("span",{className:"emoji"},ex.emoji||"🎁"),e("h3",null,ex.name),e("div",{className:"meta"},e("span",null,"📅 "+fmtDate(ex.exchange_date)),ex.budget?e("span",null,"💰 $"+ex.budget):null,ex.exchange_date?e("span",null,"⏰ "+daysTo(ex.exchange_date)):null))}),
+e("div",{className:"create-card glass",onClick:function(){p.nav("create")}},e("div",{style:{fontSize:32,color:"var(--accent2)",marginBottom:8}},"+"),e("span",{style:{color:"var(--text2)",fontSize:14}},"New exchange"))
+)
+)}
 
-function WishlistPanel({exchangeId,userId,isOwn}){
-const[items,setItems]=useState([]);const[ld,setLd]=useState(true);const[showAdd,setShowAdd]=useState(false);
-const[nn,setNn]=useState("");const[nu,setNu]=useState("");const[np,setNp]=useState("");const[nno,setNno]=useState("");const[saving,setSaving]=useState(false);
-const load=useCallback(async()=>{const{data}=await supabase.from("wishlist_items").select("*").eq("exchange_id",exchangeId).eq("user_id",userId).order("created_at",{ascending:true});setItems(data||[]);setLd(false);},[exchangeId,userId]);
-useEffect(()=>{load();},[load]);
-const add=async()=>{if(!nn.trim())return;setSaving(true);await supabase.from("wishlist_items").insert({exchange_id:exchangeId,user_id:userId,name:nn.trim(),url:nu.trim()||null,price:np?parseFloat(np):null,notes:nno.trim()||null});setNn("");setNu("");setNp("");setNno("");setSaving(false);setShowAdd(false);load();};
-const del=async(id)=>{await supabase.from("wishlist_items").delete().eq("id",id);load();};
-const toggleBought=async(item)=>{await supabase.from("wishlist_items").update({is_purchased:!item.is_purchased}).eq("id",item.id);load();};
-if(ld)return<div style={{display:"flex",justifyContent:"center",padding:40}}><div className="spinner"></div></div>;
-return<div>
-{isOwn&&<div style={{marginBottom:16}}>{!showAdd?<button className="btn btn-primary btn-sm" onClick={()=>setShowAdd(true)}>+ Add item</button>:<div className="add-wish-form glass"><div className="add-wish-row"><div className="input-group"><label>Item name *</label><input className="input" placeholder="e.g. Sony WH-1000XM5" value={nn} onChange={e=>setNn(e.target.value)}/></div><div className="input-group"><label>Price ($)</label><input className="input" type="number" placeholder="0" value={np} onChange={e=>setNp(e.target.value)}/></div></div><div className="input-group"><label>Link (optional)</label><input className="input" placeholder="https://..." value={nu} onChange={e=>setNu(e.target.value)}/></div><div className="input-group"><label>Notes (optional)</label><input className="input" placeholder="Color, size, etc." value={nno} onChange={e=>setNno(e.target.value)} onKeyDown={e=>e.key==="Enter"&&add()}/></div><div style={{display:"flex",gap:8}}><button className="btn btn-primary btn-sm" onClick={add} disabled={saving}>{saving?"Adding…":"Add to wishlist"}</button><button className="btn btn-ghost btn-sm" onClick={()=>setShowAdd(false)}>Cancel</button></div></div>}</div>}
-{items.length===0?<div className="empty-state" style={{padding:"32px 0"}}><div className="icon">📝</div><h3>{isOwn?"Your wishlist is empty":"No items yet"}</h3><p>{isOwn?"Add items so your Secret Santa knows what to get you!":"This person hasn't added any items yet."}</p></div>
-:<div className="wishlist-grid">{items.map(item=><div key={item.id} className={"wish-item"+(item.is_purchased?" wish-purchased":"")}>
-<div className="wish-info"><div className="wish-name">{item.name}</div><div className="wish-meta">{item.notes&&<span>{item.notes}</span>}{item.url&&<a className="wish-link" href={item.url} target="_blank" rel="noopener">View link ↗</a>}</div></div>
-{item.price&&<div className="wish-price">${item.price}</div>}
-<div style={{display:"flex",gap:6}}>
-{!isOwn&&<button className="btn btn-sm" style={{fontSize:11,padding:"4px 10px",background:item.is_purchased?"var(--green)":"var(--glass2)",color:item.is_purchased?"#fff":"var(--text2)",border:"1px solid "+(item.is_purchased?"var(--green)":"var(--border)")}} onClick={()=>toggleBought(item)}>{item.is_purchased?"✓ Bought":"Mark bought"}</button>}
-{isOwn&&<button className="btn btn-ghost btn-sm" style={{fontSize:11,padding:"4px 8px",color:"var(--red)"}} onClick={()=>del(item.id)}>✕</button>}
-</div></div>)}</div>}
-</div>;}
+// Create Exchange
+function CreateScreen(p){var a=useAuth(),EMOJIS=["🎄","🎁","🎉","🎃","💝","🕎","🌸","🎂","🧧","❄️"];
+var _n=us(""),nm=_n[0],sn=_n[1],_em=us("🎁"),emo=_em[0],semo=_em[1],_d=us(""),dt=_d[0],sd=_d[1],_b=us(""),bud=_b[0],sb2=_b[1],_ds=us(""),desc=_ds[0],sds=_ds[1],_l=us(false),ld=_l[0],sl=_l[1],_er=us(null),err=_er[0],ser=_er[1];
+function go(){if(!nm.trim()){ser("Give your exchange a name");return}ser(null);sl(true);var ic=Math.random().toString(36).substring(2,8).toUpperCase();sb.q("exchanges","POST",{name:nm.trim(),emoji:emo,exchange_date:dt||null,budget:bud?parseFloat(bud):null,description:desc.trim()||null,organizer_id:a.user.id,invite_code:ic,draw_done:false},null,"*",true).then(function(r){if(r.error){ser(r.error.message||"Failed");sl(false);return}sb.q("participants","POST",{exchange_id:r.data.id,user_id:a.user.id,role:"organizer"}).then(function(){sl(false);p.nav("detail",{id:r.data.id})})})}
+return e("div",{className:"create-page",style:{animation:"fadeUp .4s ease"}},
+e("div",{className:"detail-header"},e("div",{className:"back",onClick:function(){p.nav("dashboard")}},"← Back")),
+e("h1",null,"Create an exchange"),e("p",{className:"subtitle"},"Set up the basics. You can always change these later."),
+err?e("div",{className:"auth-error",style:{marginBottom:16}},err):null,
+e("div",{className:"create-form"},
+e("div",{className:"input-group"},e("label",null,"Exchange name"),e("input",{className:"input",placeholder:"e.g. Chen Family Christmas",value:nm,onChange:function(ev){sn(ev.target.value)}})),
+e("div",{className:"input-group"},e("label",null,"Pick an emoji"),e("div",{className:"emoji-picker"},EMOJIS.map(function(em){return e("div",{key:em,className:"emoji-opt"+(emo===em?" active":""),onClick:function(){semo(em)}},em)}))),
+e("div",{className:"form-row"},
+e("div",{className:"input-group"},e("label",null,"Exchange date"),e("input",{className:"input",type:"date",value:dt,onChange:function(ev){sd(ev.target.value)}})),
+e("div",{className:"input-group"},e("label",null,"Budget per person ($)"),e("input",{className:"input",type:"number",placeholder:"50",value:bud,onChange:function(ev){sb2(ev.target.value)}}))
+),
+e("div",{className:"input-group"},e("label",null,"Description (optional)"),e("textarea",{className:"input",placeholder:"Any notes…",value:desc,onChange:function(ev){sds(ev.target.value)}})),
+e("div",{className:"form-actions"},e("button",{className:"btn btn-primary btn-lg",onClick:go,disabled:ld,style:{flex:1}},ld?"Creating…":"Create exchange 🎉"),e("button",{className:"btn btn-secondary btn-lg",onClick:function(){p.nav("dashboard")}},"Cancel"))
+)
+)}
 
-function Confetti(){const colors=["#6c5ce7","#a29bfe","#00b894","#fdcb6e","#e17055","#fd79a8","#55efc4"];const pieces=Array.from({length:60},(_,i)=>({id:i,left:Math.random()*100,delay:Math.random()*2,color:colors[Math.floor(Math.random()*colors.length)],size:6+Math.random()*8}));
-return<div className="confetti">{pieces.map(p=><div key={p.id} className="confetti-piece" style={{left:p.left+"%",animationDelay:p.delay+"s",width:p.size,height:p.size,background:p.color,borderRadius:Math.random()>0.5?"50%":"2px"}}/>)}</div>;}
+// Wishlist
+function WishlistPanel(p){
+var _i=us([]),items=_i[0],si=_i[1],_l=us(true),ld=_l[0],sl=_l[1],_s=us(false),show=_s[0],ss=_s[1];
+var _nn=us(""),nn=_nn[0],snn=_nn[1],_nu=us(""),nu=_nu[0],snu=_nu[1],_np=us(""),np=_np[0],snp=_np[1],_no=us(""),no=_no[0],sno=_no[1],_sv=us(false),sv=_sv[0],ssv=_sv[1];
+function load(){sb.q("wishlist_items","GET","exchange_id=eq."+p.eid+"&user_id=eq."+p.uid+"&order=created_at.asc","*").then(function(r){si(r.data||[]);sl(false)})}
+ue(function(){load()},[p.eid,p.uid]);
+function add(){if(!nn.trim())return;ssv(true);sb.q("wishlist_items","POST",{exchange_id:p.eid,user_id:p.uid,name:nn.trim(),url:nu.trim()||null,price:np?parseFloat(np):null,notes:no.trim()||null}).then(function(){snn("");snu("");snp("");sno("");ssv(false);ss(false);load()})}
+function del(id){sb.q("wishlist_items","DELETE",null,"id=eq."+id).then(load)}
+function togBought(item){sb.q("wishlist_items","PATCH",{is_purchased:!item.is_purchased},"id=eq."+item.id).then(load)}
+if(ld)return e("div",{style:{display:"flex",justifyContent:"center",padding:40}},e("div",{className:"spinner"}));
+return e("div",null,
+p.own?e("div",{style:{marginBottom:16}},
+!show?e("button",{className:"btn btn-primary btn-sm",onClick:function(){ss(true)}},"+Add item"):
+e("div",{className:"add-form glass"},
+e("div",{className:"add-row"},e("div",{className:"input-group"},e("label",null,"Item name *"),e("input",{className:"input",placeholder:"e.g. Sony WH-1000XM5",value:nn,onChange:function(ev){snn(ev.target.value)}})),e("div",{className:"input-group"},e("label",null,"Price ($)"),e("input",{className:"input",type:"number",placeholder:"0",value:np,onChange:function(ev){snp(ev.target.value)}}))),
+e("div",{className:"input-group"},e("label",null,"Link (optional)"),e("input",{className:"input",placeholder:"https://...",value:nu,onChange:function(ev){snu(ev.target.value)}})),
+e("div",{className:"input-group"},e("label",null,"Notes (optional)"),e("input",{className:"input",placeholder:"Color, size…",value:no,onChange:function(ev){sno(ev.target.value)},onKeyDown:function(ev){if(ev.key==="Enter")add()}})),
+e("div",{style:{display:"flex",gap:8}},e("button",{className:"btn btn-primary btn-sm",onClick:add,disabled:sv},sv?"Adding…":"Add to wishlist"),e("button",{className:"btn btn-ghost btn-sm",onClick:function(){ss(false)}},"Cancel"))
+)
+):null,
+items.length===0?e("div",{className:"empty-state",style:{padding:"32px 0"}},e("div",{className:"icon"},"📝"),e("h3",null,p.own?"Your wishlist is empty":"No items yet"),e("p",null,p.own?"Add items so your Secret Santa knows what to get you!":"No items added yet.")):
+e("div",null,items.map(function(item){return e("div",{key:item.id,className:"wish-item"+(item.is_purchased?" wish-purchased":"")},
+e("div",{className:"wish-info"},e("div",{className:"wish-name"},item.name),e("div",{className:"wish-meta"},item.notes?e("span",null,item.notes):null,item.url?e("span",null," ",e("a",{href:item.url,target:"_blank",rel:"noopener",style:{color:"var(--accent2)",fontSize:12}},"Link ↗")):null)),
+item.price?e("div",{style:{fontSize:15,fontWeight:600,color:"var(--green)",whiteSpace:"nowrap"}},"$"+item.price):null,
+e("div",{style:{display:"flex",gap:6}},
+!p.own?e("button",{className:"btn btn-sm",style:{fontSize:11,padding:"4px 10px",background:item.is_purchased?"var(--green)":"var(--glass2)",color:item.is_purchased?"#fff":"var(--text2)",border:"1px solid "+(item.is_purchased?"var(--green)":"var(--border)")},onClick:function(){togBought(item)}},item.is_purchased?"✓ Bought":"Mark bought"):null,
+p.own?e("button",{className:"btn btn-ghost btn-sm",style:{fontSize:11,padding:"4px 8px",color:"var(--red)"},onClick:function(){del(item.id)}},"✕"):null
+)
+)}))
+)}
 
-function DetailScreen({onNavigate,params}){
-const{user}=useAuth();const[exchange,setExchange]=useState(null);const[participants,setParticipants]=useState([]);const[ld,setLd]=useState(true);
-const[tab,setTab]=useState("overview");const[selWish,setSelWish]=useState(null);const[drawLd,setDrawLd]=useState(false);
-const[myMatch,setMyMatch]=useState(null);const[revealed,setRevealed]=useState(false);const[showConfetti,setShowConfetti]=useState(false);
-const{show:toast,Toast}=useToast();
-const loadData=useCallback(async()=>{
-const{data:ex}=await supabase.from("exchanges").select("*").eq("id",params.id).single();setExchange(ex);
-if(ex){const{data:parts}=await supabase.from("participants").select("*, profiles(display_name, email)").eq("exchange_id",ex.id);setParticipants(parts||[]);
-if(user){const me=(parts||[]).find(p=>p.user_id===user.id);if(me?.assigned_to){const{data:mp}=await supabase.from("profiles").select("display_name").eq("id",me.assigned_to).single();setMyMatch(mp);}}}
-setLd(false);},[params.id,user]);
-useEffect(()=>{loadData();},[loadData]);
-const inviteUrl=exchange?(window.location.origin+"?join="+exchange.invite_code):"";
-const isOrg=exchange?.organizer_id===user?.id;
-const copyInvite=()=>{if(navigator.clipboard)navigator.clipboard.writeText(inviteUrl);else{const t=document.createElement("textarea");t.value=inviteUrl;document.body.appendChild(t);t.select();document.execCommand("copy");document.body.removeChild(t);}toast("Invite link copied! 🔗");};
-const runDraw=async()=>{if(participants.length<3){toast("Need at least 3 participants!");return;}setDrawLd(true);
-const ids=participants.map(p=>p.user_id);let assignments=null;
-for(let a=0;a<100;a++){const s=[...ids];for(let i=s.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[s[i],s[j]]=[s[j],s[i]];}if(ids.every((id,idx)=>id!==s[idx])){assignments=s;break;}}
-if(!assignments){toast("Draw failed — try again");setDrawLd(false);return;}
-for(let i=0;i<ids.length;i++){await supabase.from("participants").update({assigned_to:assignments[i]}).eq("exchange_id",exchange.id).eq("user_id",ids[i]);}
-await supabase.from("exchanges").update({draw_done:true}).eq("id",exchange.id);
-setDrawLd(false);toast("Draw complete! 🎅");loadData();};
-const revealMatch=()=>{setRevealed(true);setShowConfetti(true);setTimeout(()=>setShowConfetti(false),3500);};
-if(ld)return<div className="loading-page"><div className="spinner"></div></div>;
-if(!exchange)return<div className="empty-state" style={{paddingTop:120}}><div className="icon">😕</div><h3>Exchange not found</h3><button className="btn btn-primary" onClick={()=>onNavigate("dashboard")}>Back to dashboard</button></div>;
-return<div className="detail-page" style={{animation:"fadeUp .4s ease"}}>
-<div className="detail-header"><div className="back" onClick={()=>onNavigate("dashboard")}>← Back to exchanges</div><h1>{exchange.emoji} {exchange.name}</h1><div className="meta-row"><span>📅 {formatDate(exchange.exchange_date)}</span>{exchange.budget&&<span>💰 ${exchange.budget} budget</span>}<span>👥 {participants.length} participant{participants.length!==1?"s":""}</span>{isOrg&&<span style={{color:"var(--accent2)"}}>👑 Organizer</span>}</div></div>
-{exchange.description&&<div className="glass" style={{padding:20,marginBottom:28,fontSize:14,color:"var(--text2)"}}>📝 {exchange.description}</div>}
-<div className="tabs"><button className={"tab"+(tab==="overview"?" active":"")} onClick={()=>setTab("overview")}>Overview</button><button className={"tab"+(tab==="wishlists"?" active":"")} onClick={()=>setTab("wishlists")}>Wishlists</button><button className={"tab"+(tab==="draw"?" active":"")} onClick={()=>setTab("draw")}>🎅 Draw</button></div>
+// Confetti
+function Confetti(){var colors=["#6c5ce7","#a29bfe","#00b894","#fdcb6e","#e17055","#fd79a8","#55efc4"];return e("div",{className:"confetti"},Array.from({length:50},function(_,i){return e("div",{key:i,className:"confetti-piece",style:{left:Math.random()*100+"%",animationDelay:Math.random()*2+"s",width:6+Math.random()*8,height:6+Math.random()*8,background:colors[Math.floor(Math.random()*colors.length)],borderRadius:Math.random()>.5?"50%":"2px"}})}))}
 
-{tab==="overview"&&<div>
-<div className="stats-grid"><div className="stat-card glass"><div className="value">{participants.length}</div><div className="label">Participants</div></div><div className="stat-card glass"><div className="value">{exchange.budget?"$"+exchange.budget:"—"}</div><div className="label">Budget</div></div><div className="stat-card glass"><div className="value">{exchange.exchange_date?daysUntil(exchange.exchange_date):"TBD"}</div><div className="label">Until exchange</div></div><div className="stat-card glass"><div className="value">{exchange.draw_done?"✅":"⏳"}</div><div className="label">Draw</div></div></div>
-<div className="invite-box glass"><div style={{flex:1}}><div style={{fontSize:14,fontWeight:600,marginBottom:6}}>🔗 Invite link</div><div className="invite-url">{inviteUrl}</div></div><button className="btn btn-primary btn-sm" onClick={copyInvite}>Copy</button></div>
-<div className="section-title">👥 Participants</div>
-<div className="participants-list">{participants.map(p=><div key={p.id} className="participant-row"><div className="avatar">{initials(p.profiles?.display_name)}</div><div className="info"><div className="name">{p.profiles?.display_name||p.profiles?.email||"Unknown"}{p.user_id===user?.id&&<span style={{color:"var(--text3)",fontSize:12}}> (You)</span>}</div><div className="role">{p.profiles?.email}</div></div><span className={"badge "+(p.role==="organizer"?"badge-organizer":"badge-joined")}>{p.role==="organizer"?"👑 Organizer":"✓ Joined"}</span></div>)}{participants.length===1&&<div style={{textAlign:"center",padding:"24px 0",color:"var(--text3)",fontSize:14}}>Share the invite link to get people to join!</div>}</div>
-</div>}
+// Detail Screen
+function DetailScreen(p){
+var a=useAuth(),_x=us(null),ex=_x[0],sx=_x[1],_ps=us([]),parts=_ps[0],sps=_ps[1],_l=us(true),ld=_l[0],sl=_l[1];
+var _t=us("overview"),tab=_t[0],st=_t[1],_sw=us(null),sw=_sw[0],ssw=_sw[1];
+var _dl=us(false),drawLd=_dl[0],sdl=_dl[1],_mm=us(null),mm=_mm[0],smm=_mm[1],_rv=us(false),rev=_rv[0],srv=_rv[1],_cf=us(false),cf=_cf[0],scf=_cf[1];
+var toast=useToast();
+function loadData(){sb.q("exchanges","GET","id=eq."+p.params.id,"*",true).then(function(r){sx(r.data);if(r.data){sb.q("participants","GET","exchange_id=eq."+r.data.id,"*, profiles(display_name, email)").then(function(r2){sps(r2.data||[]);if(a.user){var me=(r2.data||[]).find(function(pp){return pp.user_id===a.user.id});if(me&&me.assigned_to){sb.q("profiles","GET","id=eq."+me.assigned_to,"display_name",true).then(function(r3){smm(r3.data)})}}sl(false)})}})}
+ue(function(){loadData()},[p.params.id]);
+var invUrl=ex?window.location.origin+"?join="+ex.invite_code:"";
+var isOrg=ex&&a.user&&ex.organizer_id===a.user.id;
+function copyInv(){if(navigator.clipboard)navigator.clipboard.writeText(invUrl);toast.show("Invite link copied! 🔗")}
+function runDraw(){if(parts.length<3){toast.show("Need at least 3 participants!");return}sdl(true);var ids=parts.map(function(pp){return pp.user_id});var asgn=null;for(var att=0;att<100;att++){var s=ids.slice();for(var i=s.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var tmp=s[i];s[i]=s[j];s[j]=tmp}if(ids.every(function(id,idx){return id!==s[idx]})){asgn=s;break}}if(!asgn){toast.show("Draw failed");sdl(false);return}var promises=ids.map(function(id,i){return sb.q("participants","PATCH",{assigned_to:asgn[i]},"exchange_id=eq."+ex.id+"&user_id=eq."+id)});Promise.all(promises).then(function(){sb.q("exchanges","PATCH",{draw_done:true},"id=eq."+ex.id).then(function(){sdl(false);toast.show("Draw complete! 🎅");loadData()})})}
+function reveal(){srv(true);scf(true);setTimeout(function(){scf(false)},3500)}
+if(ld)return e("div",{className:"loading-page"},e("div",{className:"spinner"}));
+if(!ex)return e("div",{className:"empty-state",style:{paddingTop:120}},e("div",{className:"icon"},"😕"),e("h3",null,"Exchange not found"),e("button",{className:"btn btn-primary",onClick:function(){p.nav("dashboard")}},"Back"));
+return e("div",{className:"detail-page",style:{animation:"fadeUp .4s ease"}},
+e("div",{className:"detail-header"},e("div",{className:"back",onClick:function(){p.nav("dashboard")}},"← Back to exchanges"),e("h1",null,ex.emoji+" "+ex.name),e("div",{className:"meta-row"},e("span",null,"📅 "+fmtDate(ex.exchange_date)),ex.budget?e("span",null,"💰 $"+ex.budget+" budget"):null,e("span",null,"👥 "+parts.length+" participant"+(parts.length!==1?"s":"")),isOrg?e("span",{style:{color:"var(--accent2)"}},"👑 Organizer"):null)),
+ex.description?e("div",{className:"glass",style:{padding:20,marginBottom:28,fontSize:14,color:"var(--text2)"}},"📝 "+ex.description):null,
+e("div",{className:"tabs"},e("button",{className:"tab"+(tab==="overview"?" active":""),onClick:function(){st("overview")}},"Overview"),e("button",{className:"tab"+(tab==="wishlists"?" active":""),onClick:function(){st("wishlists")}},"Wishlists"),e("button",{className:"tab"+(tab==="draw"?" active":""),onClick:function(){st("draw")}},"🎅 Draw")),
+tab==="overview"?e("div",null,
+e("div",{className:"stats-grid"},e("div",{className:"stat-card glass"},e("div",{className:"value"},parts.length),e("div",{className:"label"},"Participants")),e("div",{className:"stat-card glass"},e("div",{className:"value"},ex.budget?"$"+ex.budget:"—"),e("div",{className:"label"},"Budget")),e("div",{className:"stat-card glass"},e("div",{className:"value"},ex.exchange_date?daysTo(ex.exchange_date):"TBD"),e("div",{className:"label"},"Until exchange")),e("div",{className:"stat-card glass"},e("div",{className:"value"},ex.draw_done?"✅":"⏳"),e("div",{className:"label"},"Draw"))),
+e("div",{className:"invite-box glass"},e("div",{style:{flex:1}},e("div",{style:{fontSize:14,fontWeight:600,marginBottom:6}},"🔗 Invite link"),e("div",{className:"invite-url"},invUrl)),e("button",{className:"btn btn-primary btn-sm",onClick:copyInv},"Copy")),
+e("div",{className:"section-title"},"👥 Participants"),
+e("div",{className:"participants-list"},parts.map(function(pp){return e("div",{key:pp.id,className:"participant-row"},e("div",{className:"avatar"},ini(pp.profiles&&pp.profiles.display_name)),e("div",{className:"info"},e("div",{className:"name"},(pp.profiles&&pp.profiles.display_name)||"Unknown",pp.user_id===a.user.id?e("span",{style:{color:"var(--text3)",fontSize:12}}," (You)"):null),e("div",{className:"role"},pp.profiles&&pp.profiles.email)),e("span",{className:"badge "+(pp.role==="organizer"?"badge-org":"badge-joined")},pp.role==="organizer"?"👑 Organizer":"✓ Joined"))}),parts.length===1?e("div",{style:{textAlign:"center",padding:"24px 0",color:"var(--text3)",fontSize:14}},"Share the invite link to get people to join!"):null)
+):null,
+tab==="wishlists"?e("div",null,
+e("div",{style:{marginBottom:20}},e("div",{className:"section-title"},"📋 My Wishlist"),e(WishlistPanel,{eid:ex.id,uid:a.user.id,own:true})),
+parts.filter(function(pp){return pp.user_id!==a.user.id}).length>0?e("div",null,e("div",{className:"section-title",style:{marginTop:32}},"👥 Other Wishlists"),e("div",{className:"participants-list",style:{marginBottom:16}},parts.filter(function(pp){return pp.user_id!==a.user.id}).map(function(pp){return e("div",{key:pp.id,className:"participant-row",style:{cursor:"pointer"},onClick:function(){ssw(sw===pp.user_id?null:pp.user_id)}},e("div",{className:"avatar"},ini(pp.profiles&&pp.profiles.display_name)),e("div",{className:"info"},e("div",{className:"name"},(pp.profiles&&pp.profiles.display_name)||"Unknown")),e("span",{style:{color:"var(--text3)",fontSize:13}},sw===pp.user_id?"▾ Hide":"▸ View"))})),sw?e(WishlistPanel,{eid:ex.id,uid:sw,own:false}):null):null
+):null,
+tab==="draw"?e("div",null,
+!ex.draw_done?e("div",{style:{textAlign:"center",padding:"40px 24px",maxWidth:500,margin:"0 auto"}},e("div",{className:"glass",style:{padding:40}},e("div",{style:{fontSize:48,marginBottom:16}},"🎅"),e("h2",{style:{fontFamily:"'Instrument Serif',serif",fontSize:24,marginBottom:8}},"Secret Santa Draw"),e("p",{style:{color:"var(--text2)",fontSize:14,marginBottom:24}},parts.length<3?"You need at least 3 participants.":"Ready! Each person will be randomly matched."),e("p",{style:{color:"var(--text3)",fontSize:13,marginBottom:24}},"👥 "+parts.length+" participant"+(parts.length!==1?"s":"")),isOrg?e("button",{className:"btn btn-primary btn-lg",onClick:runDraw,disabled:drawLd||parts.length<3},drawLd?"Running…":"🎅 Run the Draw"):e("p",{style:{color:"var(--text3)",fontSize:14}},"Waiting for organizer…"))):
+e("div",{style:{textAlign:"center",padding:"40px 24px",maxWidth:500,margin:"0 auto"}},
+!rev?e("div",{className:"glass",style:{padding:40}},e("div",{style:{fontSize:48,marginBottom:16}},"📩"),e("h2",{style:{fontFamily:"'Instrument Serif',serif",fontSize:24,marginBottom:8}},"The draw is done!"),e("p",{style:{color:"var(--text2)",fontSize:14,marginBottom:28}},"Tap below to reveal who you're buying for."),e("div",{className:"envelope",onClick:reveal},e("div",{className:"envelope-body"},"🎁")),e("p",{style:{color:"var(--text3)",fontSize:12}},"Tap the envelope")):
+e("div",{className:"glass",style:{padding:40,animation:"fadeUp .5s ease"}},e("span",{style:{fontSize:64,display:"block",marginBottom:20}},"🎉"),e("h2",{style:{fontFamily:"'Instrument Serif',serif",fontSize:28,marginBottom:8}},"You're the Secret Santa for…"),e("div",{style:{fontSize:24,fontWeight:700,color:"var(--accent2)",margin:"16px 0"}},(mm&&mm.display_name)||"Someone special!"),e("p",{style:{color:"var(--text2)",fontSize:14}},"Check their wishlist for gift ideas!"),e("button",{className:"btn btn-primary",style:{marginTop:20},onClick:function(){st("wishlists");var mp=parts.find(function(pp){return mm&&pp.profiles&&pp.profiles.display_name===mm.display_name});if(mp)ssw(mp.user_id)}},"View their wishlist →")),
+cf?e(Confetti):null
+)
+):null,
+toast.el
+)}
 
-{tab==="wishlists"&&<div>
-<div style={{marginBottom:20}}><div className="section-title">📋 My Wishlist</div><WishlistPanel exchangeId={exchange.id} userId={user.id} isOwn={true}/></div>
-{participants.filter(p=>p.user_id!==user.id).length>0&&<div><div className="section-title" style={{marginTop:32}}>👥 Other Wishlists</div>
-<div className="participants-list" style={{marginBottom:16}}>{participants.filter(p=>p.user_id!==user.id).map(p=><div key={p.id} className="participant-row" style={{cursor:"pointer"}} onClick={()=>setSelWish(selWish===p.user_id?null:p.user_id)}><div className="avatar">{initials(p.profiles?.display_name)}</div><div className="info"><div className="name">{p.profiles?.display_name||"Unknown"}</div></div><span style={{color:"var(--text3)",fontSize:13}}>{selWish===p.user_id?"▾ Hide":"▸ View"}</span></div>)}</div>
-{selWish&&<div style={{animation:"fadeUp .3s ease"}}><WishlistPanel exchangeId={exchange.id} userId={selWish} isOwn={false}/></div>}
-</div>}
-</div>}
+// Join Screen
+function JoinScreen(p){var a=useAuth(),_x=us(null),ex=_x[0],sx=_x[1],_l=us(true),ld=_l[0],sl=_l[1],_j=us(false),joining=_j[0],sj=_j[1],_jd=us(false),joined=_jd[0],sjd=_jd[1],_er=us(null),err=_er[0],ser=_er[1];
+ue(function(){sb.q("exchanges","GET","invite_code=eq."+p.code,"*",true).then(function(r){sx(r.data);if(r.data&&a.user){sb.q("participants","GET","exchange_id=eq."+r.data.id+"&user_id=eq."+a.user.id,"id").then(function(r2){if(r2.data&&r2.data.length>0)sjd(true);sl(false)})}else sl(false)})},[p.code,a.user]);
+function go(){if(!a.user){sessionStorage.setItem("hostr_join",p.code);p.nav("signup");return}sj(true);ser(null);sb.q("participants","POST",{exchange_id:ex.id,user_id:a.user.id,role:"participant"}).then(function(r){sj(false);if(r.error){if(r.error.code==="23505"){sjd(true);return}ser(r.error.message||"Failed");return}sjd(true)})}
+if(ld)return e("div",{className:"loading-page"},e("div",{className:"spinner"}));
+if(!ex)return e("div",{className:"join-page"},e("div",{className:"join-card glass"},e("div",{style:{fontSize:48,marginBottom:16}},"😕"),e("h1",null,"Exchange not found"),e("p",{style:{color:"var(--text2)",fontSize:15,marginBottom:24}},"This invite link may be invalid."),e("button",{className:"btn btn-primary btn-lg btn-full",onClick:function(){p.nav("dashboard")}},"Go to dashboard")));
+return e("div",{className:"join-page"},e("div",{className:"join-card glass"},
+e("div",{style:{fontSize:48,marginBottom:16}},ex.emoji||"🎁"),
+e("h1",null,ex.name),
+ex.description?e("p",{style:{color:"var(--text2)",fontSize:15,marginBottom:8}},ex.description):null,
+e("p",{style:{color:"var(--text3)",fontSize:13,marginBottom:28}},"You've been invited to a gift exchange!"),
+e("div",{style:{display:"flex",justifyContent:"center",gap:24,marginBottom:28}},ex.exchange_date?e("div",{style:{textAlign:"center"}},e("div",{style:{fontSize:18,fontWeight:600}},fmtDate(ex.exchange_date)),e("div",{style:{fontSize:12,color:"var(--text3)",marginTop:2}},"Exchange date")):null,ex.budget?e("div",{style:{textAlign:"center"}},e("div",{style:{fontSize:18,fontWeight:600}},"$"+ex.budget),e("div",{style:{fontSize:12,color:"var(--text3)",marginTop:2}},"Budget")):null),
+err?e("div",{className:"auth-error",style:{marginBottom:16}},err):null,
+joined?e("div",null,e("div",{style:{fontSize:18,fontWeight:600,color:"var(--green)",marginBottom:16}},"✅ You're in!"),e("button",{className:"btn btn-primary btn-lg btn-full",onClick:function(){p.nav("detail",{id:ex.id})}},"View exchange")):
+e("button",{className:"btn btn-primary btn-lg btn-full",onClick:go,disabled:joining},!a.user?"Sign up to join 🎉":joining?"Joining…":"Join exchange 🎉")
+))}
 
-{tab==="draw"&&<div>
-{!exchange.draw_done?<div style={{textAlign:"center",padding:"40px 24px",maxWidth:500,margin:"0 auto"}}><div className="glass" style={{padding:40}}><div style={{fontSize:48,marginBottom:16}}>🎅</div><h2 style={{fontFamily:"'Instrument Serif',serif",fontSize:24,marginBottom:8}}>Secret Santa Draw</h2><p style={{color:"var(--text2)",fontSize:14,marginBottom:24}}>{participants.length<3?"You need at least 3 participants.":"Ready! Each person will be randomly matched."}</p><p style={{color:"var(--text3)",fontSize:13,marginBottom:24}}>👥 {participants.length} participant{participants.length!==1?"s":""}</p>{isOrg?<button className="btn btn-primary btn-lg" onClick={runDraw} disabled={drawLd||participants.length<3}>{drawLd?"Running…":"🎅 Run the Draw"}</button>:<p style={{color:"var(--text3)",fontSize:14}}>Waiting for the organizer to run the draw…</p>}</div></div>
-:<div style={{textAlign:"center",padding:"40px 24px",maxWidth:500,margin:"0 auto"}}>
-{!revealed?<div className="glass" style={{padding:40}}><div style={{fontSize:48,marginBottom:16}}>📩</div><h2 style={{fontFamily:"'Instrument Serif',serif",fontSize:24,marginBottom:8}}>The draw is done!</h2><p style={{color:"var(--text2)",fontSize:14,marginBottom:28}}>Tap below to reveal who you're buying for.</p><div className="envelope" onClick={revealMatch}><div className="envelope-body">🎁</div></div><p style={{color:"var(--text3)",fontSize:12}}>Tap the envelope</p></div>
-:<div className="glass" style={{padding:40,animation:"fadeUp .5s ease"}}><span style={{fontSize:64,display:"block",marginBottom:20}}>🎉</span><h2 style={{fontFamily:"'Instrument Serif',serif",fontSize:28,marginBottom:8}}>You're the Secret Santa for…</h2><div style={{fontSize:24,fontWeight:700,color:"var(--accent2)",margin:"16px 0"}}>{myMatch?.display_name||"Someone special!"}</div><p style={{color:"var(--text2)",fontSize:14}}>Check their wishlist for gift ideas!</p><button className="btn btn-primary" style={{marginTop:20}} onClick={()=>{setTab("wishlists");const mp=participants.find(p=>p.profiles?.display_name===myMatch?.display_name);if(mp)setSelWish(mp.user_id);}}>View their wishlist →</button></div>}
-{showConfetti&&<Confetti/>}
-</div>}
-</div>}
-{Toast}</div>;}
+// App
+function App(){var _s=us("loading"),screen=_s[0],setScreen=_s[1],_p=us({}),params=_p[0],setParams=_p[1];
+function nav(s,p){setScreen(s);setParams(p||{});window.scrollTo(0,0);if(s!=="join"){var u=new URL(window.location);u.searchParams.delete("join");window.history.replaceState({},"",u)}}
+return e(AuthProvider,null,e(AppRouter,{screen:screen,setScreen:setScreen,params:params,nav:nav}))}
 
-function JoinScreen({onNavigate,inviteCode}){const{user}=useAuth();const[exchange,setExchange]=useState(null);const[ld,setLd]=useState(true);const[joining,setJoining]=useState(false);const[joined,setJoined]=useState(false);const[error,setError]=useState(null);
-useEffect(()=>{(async()=>{const{data}=await supabase.from("exchanges").select("*").eq("invite_code",inviteCode).single();setExchange(data);if(data&&user){const{data:existing}=await supabase.from("participants").select("id").eq("exchange_id",data.id).eq("user_id",user.id);if(existing&&existing.length>0)setJoined(true);}setLd(false);})();},[inviteCode,user]);
-const go=async()=>{if(!user){sessionStorage.setItem("hostr_join",inviteCode);onNavigate("signup");return;}setJoining(true);setError(null);const{error:e}=await supabase.from("participants").insert({exchange_id:exchange.id,user_id:user.id,role:"participant"});setJoining(false);if(e){if(e.message?.includes("duplicate")||e.code==="23505"){setJoined(true);return;}setError(e.message||"Failed to join");return;}setJoined(true);};
-if(ld)return<div className="loading-page"><div className="spinner"></div></div>;
-if(!exchange)return<div className="join-page"><div className="join-card glass"><div className="emoji">😕</div><h1>Exchange not found</h1><p className="desc">This invite link may be invalid or expired.</p><button className="btn btn-primary btn-lg btn-full" onClick={()=>onNavigate("dashboard")}>Go to dashboard</button></div></div>;
-return<div className="join-page"><div className="join-card glass"><div className="emoji">{exchange.emoji||"🎁"}</div><h1>{exchange.name}</h1>{exchange.description&&<p className="desc">{exchange.description}</p>}<p className="host">You've been invited to a gift exchange!</p><div className="join-details">{exchange.exchange_date&&<div className="join-detail"><div className="val">{formatDate(exchange.exchange_date)}</div><div className="lbl">Exchange date</div></div>}{exchange.budget&&<div className="join-detail"><div className="val">${exchange.budget}</div><div className="lbl">Budget</div></div>}</div>{error&&<div className="auth-error" style={{marginBottom:16}}>{error}</div>}{joined?<div><div style={{fontSize:18,fontWeight:600,color:"var(--green)",marginBottom:16}}>✅ You're in!</div><button className="btn btn-primary btn-lg btn-full" onClick={()=>onNavigate("detail",{id:exchange.id})}>View exchange</button></div>:<button className="btn btn-primary btn-lg btn-full" onClick={go} disabled={joining}>{!user?"Sign up to join 🎉":joining?"Joining…":"Join exchange 🎉"}</button>}</div></div>;}
+function AppRouter(p){var a=useAuth();
+ue(function(){if(a.loading)return;var jc=new URLSearchParams(window.location.search).get("join");if(jc){p.setScreen("join");return}if(a.user){var pj=sessionStorage.getItem("hostr_join");if(pj){sessionStorage.removeItem("hostr_join");window.location.search="?join="+pj;return}if(["loading","login","signup"].indexOf(p.screen)>=0)p.setScreen("dashboard")}else{if(["loading","dashboard","create","detail"].indexOf(p.screen)>=0)p.setScreen("login")}},[a.loading,a.user]);
+if(a.loading||p.screen==="loading")return e("div",{className:"loading-page"},e("div",{className:"spinner"}));
+var jc=new URLSearchParams(window.location.search).get("join");
+var showNav=["login","signup","join"].indexOf(p.screen)<0;
+return e("div",{id:"app"},
+showNav?e(Nav,{nav:p.nav}):null,
+p.screen==="login"?e(LoginScreen,{nav:p.nav}):null,
+p.screen==="signup"?e(SignupScreen,{nav:p.nav}):null,
+p.screen==="dashboard"?e(DashboardScreen,{nav:p.nav}):null,
+p.screen==="create"?e(CreateScreen,{nav:p.nav}):null,
+p.screen==="detail"?e(DetailScreen,{nav:p.nav,params:p.params}):null,
+p.screen==="join"?e(JoinScreen,{nav:p.nav,code:jc}):null
+)}
 
-function App(){const[screen,setScreen]=useState("loading");const[params,setParams]=useState({});
-const navigate=useCallback((s,p)=>{setScreen(s);setParams(p||{});window.scrollTo(0,0);if(s!=="join"){const u=new URL(window.location);u.searchParams.delete("join");window.history.replaceState({},"",u);}},[]);
-return<AuthProvider><AppRouter screen={screen} setScreen={setScreen} params={params} navigate={navigate}/></AuthProvider>;}
-
-function AppRouter({screen,setScreen,params,navigate}){const{user,loading}=useAuth();
-useEffect(()=>{if(loading)return;const jc=new URLSearchParams(window.location.search).get("join");if(jc){setScreen("join");return;}
-if(user){const pj=sessionStorage.getItem("hostr_join");if(pj){sessionStorage.removeItem("hostr_join");window.location.search="?join="+pj;return;}if(["loading","login","signup"].includes(screen))setScreen("dashboard");}
-else{if(["loading","dashboard","create","detail"].includes(screen))setScreen("login");}
-},[loading,user]);
-if(loading||screen==="loading")return<div className="loading-page"><div className="spinner"></div></div>;
-const jc=new URLSearchParams(window.location.search).get("join");const showNav=!["login","signup","join"].includes(screen);
-return<div id="app">{showNav&&<Nav onNavigate={navigate}/>}{screen==="login"&&<LoginScreen onNavigate={navigate}/>}{screen==="signup"&&<SignupScreen onNavigate={navigate}/>}{screen==="dashboard"&&<DashboardScreen onNavigate={navigate}/>}{screen==="create"&&<CreateScreen onNavigate={navigate}/>}{screen==="detail"&&<DetailScreen onNavigate={navigate} params={params}/>}{screen==="join"&&<JoinScreen onNavigate={navigate} inviteCode={jc}/>}</div>;}
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+ReactDOM.createRoot(document.getElementById("root")).render(e(App));
 </script>
 </body>
 </html>
